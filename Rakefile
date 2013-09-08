@@ -21,7 +21,7 @@ Jeweler::Tasks.new do |gem|
   gem.description = 'https://github.com/alexfalkowski/rfunk/blob/master/README.md'
   gem.email = 'alexrfalkowski@gmail.com'
   gem.authors = ['Alex Falkowski']
-  # dependencies defined in Gemfile
+  gem.add_dependency 'ice_nine'
 end
 
 Jeweler::RubygemsDotOrgTasks.new
