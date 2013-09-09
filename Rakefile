@@ -2,6 +2,7 @@ require 'rubygems'
 require 'bundler'
 require 'rake'
 require 'jeweler'
+require 'rspec/core/rake_task'
 
 begin
   Bundler.setup(:default, :development)
@@ -20,7 +21,11 @@ Jeweler::Tasks.new do |gem|
   gem.description = 'https://github.com/alexfalkowski/rfunk/blob/master/README.md'
   gem.email = 'alexrfalkowski@gmail.com'
   gem.authors = ['Alex Falkowski']
-  # dependencies defined in Gemfile
+  gem.add_dependency 'ice_nine'
 end
 
 Jeweler::RubygemsDotOrgTasks.new
+
+RSpec::Core::RakeTask.new(:spec)
+
+task :default => :spec
