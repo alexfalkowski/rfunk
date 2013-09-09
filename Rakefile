@@ -2,6 +2,7 @@ require 'rubygems'
 require 'bundler'
 require 'rake'
 require 'jeweler'
+require 'rspec/core/rake_task'
 
 begin
   Bundler.setup(:default, :development)
@@ -24,3 +25,7 @@ Jeweler::Tasks.new do |gem|
 end
 
 Jeweler::RubygemsDotOrgTasks.new
+
+RSpec::Core::RakeTask.new(:spec)
+
+task :default => :spec
