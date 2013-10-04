@@ -1,5 +1,6 @@
 require 'spec_helper'
 require_relative 'attribute_class'
+require_relative 'customer'
 
 describe RFunk::Attribute do
   context 'AttributeClass' do
@@ -14,6 +15,13 @@ describe RFunk::Attribute do
       When(:result) { node.name('test') }
       Then { not result.equal? node  }
       Then { result.name == Some('test') }
+    end
+
+    context 'sets multiple attributes' do
+      Given(:node) { Customer.new }
+      When(:result) { node.first_name('test').last_name('test') }
+      Then { result.first_name == Some('test') }
+      Then { result.last_name == Some('test') }
     end
 
     context 'String' do
