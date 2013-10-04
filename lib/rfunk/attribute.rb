@@ -12,6 +12,11 @@ module RFunk
             raise "Expected a type of '#{type}'" unless value.instance_of?(type)
 
             self.class.new.tap { |object|
+              self.instance_variables.select { |v| v != variable_name }.each { |v|
+                previous_value = self.instance_variable_get(v)
+                object.instance_variable_set(v, previous_value)
+              }
+
               object.instance_variable_set(variable_name, value)
               object.deep_freeze
             }
