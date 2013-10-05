@@ -8,6 +8,10 @@ module RFunk
       @value = value
     end
 
+    def or(_)
+      self
+    end
+
     def method_missing(method, *arguments, &block)
       Some(@value.__send__(method, *arguments, &block))
     end

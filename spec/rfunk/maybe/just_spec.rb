@@ -18,5 +18,12 @@ describe RFunk::Maybe do
         Then { result[:a] == Some(1) }
       end
     end
+
+    context 'or always returns the Some value' do
+      context 'get a value' do
+        When(:result) { Some(1).or(2) }
+        Then { result.value == 1 }
+      end
+    end
   end
 end
