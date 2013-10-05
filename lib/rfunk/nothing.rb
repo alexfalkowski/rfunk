@@ -2,15 +2,11 @@ module RFunk
   class Nothing < Maybe
     class << self
       def value(default = nil)
-        if Maybe.nothing?(default)
-          self
-        else
-          Some(default)
-        end
+        Some(default)
       end
 
       def or(other)
-        value(other)
+        Some(other)
       end
 
       def method_missing(method, *arguments, &block)
