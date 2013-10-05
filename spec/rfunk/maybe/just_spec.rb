@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe RFunk::Maybe do
   context 'Just' do
-    context 'fetch a value' do
+    context 'get a value' do
       When(:result) { Some(1) }
-      Then { result.fetch == 1 }
+      Then { result.value == 1 }
     end
 
     context 'methods on object' do

@@ -15,22 +15,22 @@ describe RFunk::Maybe do
     context 'fetch' do
       context 'fetch is nothing' do
         When(:result) { Some(nil) }
-        Then { result.fetch == RFunk::Nothing }
+        Then { result.value == RFunk::Nothing }
       end
 
       context 'fetch({}) is nothing' do
         When(:result) { Some(nil) }
-        Then { result.fetch({}) == RFunk::Nothing }
+        Then { result.value({}) == RFunk::Nothing }
       end
 
       context 'fetch(Nothing) is nothing' do
         When(:result) { Some(nil) }
-        Then { result.fetch(Nothing) == RFunk::Nothing }
+        Then { result.value(Nothing) == RFunk::Nothing }
       end
 
       context 'fetch(3) is just' do
         When(:result) { Some(nil) }
-        Then { result.fetch(3) == Some(3) }
+        Then { result.value(3) == Some(3) }
       end
     end
 

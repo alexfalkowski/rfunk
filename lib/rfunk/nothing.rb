@@ -1,7 +1,7 @@
 module RFunk
   class Nothing < Maybe
     class << self
-      def fetch(default = nil)
+      def value(default = nil)
         if Maybe.nothing?(default)
           self
         else
@@ -9,8 +9,8 @@ module RFunk
         end
       end
 
-      def or(value)
-        fetch(value)
+      def or(other)
+        value(other)
       end
 
       def method_missing(method, *arguments, &block)

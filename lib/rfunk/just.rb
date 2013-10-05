@@ -3,7 +3,6 @@ module RFunk
     public_class_method :new
 
     attr_reader :value
-    alias_method :fetch, :value
 
     def initialize(value)
       @value = value
