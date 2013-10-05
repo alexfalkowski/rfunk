@@ -17,13 +17,6 @@ describe RFunk::Attribute do
       Then { result.name == Some('test') }
     end
 
-    context 'sets multiple attributes' do
-      Given(:node) { Customer.new }
-      When(:result) { node.first_name('test').last_name('test') }
-      Then { result.first_name == Some('test') }
-      Then { result.last_name == Some('test') }
-    end
-
     context 'String' do
       context 'replace the string value' do
         Given(:node) { AttributeClass.new }
@@ -68,7 +61,32 @@ describe RFunk::Attribute do
     context 'Wrong Type' do
       Given(:node) { AttributeClass.new }
       When(:result) { node.hash([1, 2, 3]) }
-      Then { result == Failure(RuntimeError, "Expected a type of 'Hash'") }
+      Then { result == Failure(RuntimeError, "Expected a type of 'Hash' for attribute 'hash'") }
+    end
+
+    context 'Customer' do
+      context 'sets multiple attributes' do
+        Given(:node) { Customer.new }
+        When(:result) { node.first_name('test').last_name('test') }
+        Then { result.first_name == Some('test') }
+        Then { result.last_name == Some('test') }
+      end
+
+      context 'allows creation with constructor parameters' do
+        When(:result) { Customer.new(first_name: 'test', last_name: 'test') }
+        Then { result.first_name == Some('test') }
+        Then { result.last_name == Some('test') }
+      end
+
+      context 'does not allow creation with invalid parameters' do
+        When(:result) { Customer.new(first_name: 'test', donkey: 'test') }
+        Then { result == Failure(RuntimeError, "Attribute with name 'donkey' does not exist. The only available attributes are '{:first_name=>String, :last_name=>String}'") }
+      end
+
+      context 'does not allow creation with invalid type' do
+        When(:result) { Customer.new(first_name: 'test', last_name: []) }
+        Then { result == Failure(RuntimeError, "Expected a type of 'String' for attribute 'last_name'") }
+      end
     end
   end
 end
