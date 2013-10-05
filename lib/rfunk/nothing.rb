@@ -9,6 +9,10 @@ module RFunk
         end
       end
 
+      def or(value)
+        fetch(value)
+      end
+
       def method_missing(method, *arguments, &block)
         self
       end

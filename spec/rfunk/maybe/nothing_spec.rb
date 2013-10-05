@@ -89,5 +89,27 @@ describe RFunk::Maybe do
         Then { result == RFunk::Nothing }
       end
     end
+
+    context 'nothing with or to return the other value' do
+      context 'single value' do
+        When(:result) { Some(nil).a.or('test') }
+        Then { result == Some('test') }
+      end
+
+      context 'double value' do
+        When(:result) { Some(nil).a.b.or('test') }
+        Then { result == Some('test') }
+      end
+
+      context 'triple value' do
+        When(:result) { Some(nil).a.b.c.or('test') }
+        Then { result == Some('test') }
+      end
+
+      context 'nil value' do
+        When(:result) { Some(nil).a.b.c.or(nil) }
+        Then { result == RFunk::Nothing }
+      end
+    end
   end
 end
