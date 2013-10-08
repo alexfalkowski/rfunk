@@ -80,7 +80,7 @@ describe RFunk::Attribute do
 
       context 'does not allow creation with invalid parameters' do
         When(:result) { Customer.new(first_name: 'test', donkey: 'test') }
-        Then { result == Failure(RuntimeError, "Attribute with name 'donkey' does not exist. The only available attributes are '{:first_name=>String, :last_name=>String}'") }
+        Then { result == Failure(RFunk::NotFoundError, "Attribute with name 'donkey' does not exist. The only available attributes are '{:first_name=>String, :last_name=>String}'") }
       end
 
       context 'does not allow creation with invalid type' do
