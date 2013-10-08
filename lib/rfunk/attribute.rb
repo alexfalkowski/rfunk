@@ -62,7 +62,7 @@ module RFunk
     end
 
     def raise_expected_type(name, value, type)
-      raise "Expected a type of '#{type}' for attribute '#{name}'" unless value.instance_of?(type)
+      raise TypeError, "Expected a type of '#{type}' for attribute '#{name}'" unless value.instance_of?(type)
     end
 
     def raise_not_found(key, attributes)
