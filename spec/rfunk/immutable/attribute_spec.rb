@@ -61,7 +61,7 @@ describe RFunk::Attribute do
     context 'Wrong Type' do
       Given(:node) { AttributeClass.new }
       When(:result) { node.hash([1, 2, 3]) }
-      Then { result == Failure(RuntimeError, "Expected a type of 'Hash' for attribute 'hash'") }
+      Then { result == Failure(TypeError, "Expected a type of 'Hash' for attribute 'hash'") }
     end
 
     context 'Customer' do
@@ -80,12 +80,12 @@ describe RFunk::Attribute do
 
       context 'does not allow creation with invalid parameters' do
         When(:result) { Customer.new(first_name: 'test', donkey: 'test') }
-        Then { result == Failure(RuntimeError, "Attribute with name 'donkey' does not exist. The only available attributes are '{:first_name=>String, :last_name=>String}'") }
+        Then { result == Failure(RFunk::NotFoundError, "Attribute with name 'donkey' does not exist. The only available attributes are '{:first_name=>String, :last_name=>String}'") }
       end
 
       context 'does not allow creation with invalid type' do
         When(:result) { Customer.new(first_name: 'test', last_name: []) }
-        Then { result == Failure(RuntimeError, "Expected a type of 'String' for attribute 'last_name'") }
+        Then { result == Failure(TypeError, "Expected a type of 'String' for attribute 'last_name'") }
       end
     end
   end

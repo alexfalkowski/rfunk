@@ -62,11 +62,11 @@ module RFunk
     end
 
     def raise_expected_type(name, value, type)
-      raise "Expected a type of '#{type}' for attribute '#{name}'" unless value.instance_of?(type)
+      raise TypeError, "Expected a type of '#{type}' for attribute '#{name}'" unless value.instance_of?(type)
     end
 
     def raise_not_found(key, attributes)
-      raise "Attribute with name '#{key}' does not exist. The only available attributes are '#{attributes}'" unless attributes.key?(key)
+      raise RFunk::NotFoundError, "Attribute with name '#{key}' does not exist. The only available attributes are '#{attributes}'" unless attributes.key?(key)
     end
   end
 end
