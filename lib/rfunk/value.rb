@@ -5,7 +5,7 @@ module RFunk
     end
 
     def result
-      Some(value)
+      Option(value)
     end
 
     private

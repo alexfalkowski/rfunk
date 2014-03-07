@@ -7,7 +7,7 @@ describe RFunk::Attribute do
     context 'has a get attribute that defaults to Nothing' do
       Given(:node) { AttributeClass.new }
       When(:result) { node.name }
-      Then { result == Nothing }
+      Then { result == None() }
     end
 
     context 'sets an attribute' do

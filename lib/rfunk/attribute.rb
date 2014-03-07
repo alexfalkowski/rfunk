@@ -29,7 +29,7 @@ module RFunk
             raise_expected_type(name, value, type)
             create_immutable(variable_name(name), value)
           else
-            Some(self.instance_variable_get(variable_name(name)))
+            Option(self.instance_variable_get(variable_name(name)))
           end
         end
       end

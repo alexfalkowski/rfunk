@@ -24,7 +24,7 @@ describe RFunk::Lazy do
     context 'None' do
       Given(:lazy) { Lazy(-> { nil }) }
       When(:result) { lazy.value }
-      Then { expect(result).to eq(Nothing) }
+      Then { expect(result).to eq(None()) }
     end
 
     context 'does not get a value' do

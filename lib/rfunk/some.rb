@@ -1,9 +1,25 @@
 module RFunk
-  def Some(value)
-    if Maybe.nothing?(value)
-      Nothing
-    else
-      Just.new(value)
+  class Some
+    attr_reader :value
+
+    def initialize(value)
+      @value = value
     end
+
+    def or(_)
+      self
+    end
+
+    def method_missing(method, *arguments, &block)
+      Option(value.__send__(method, *arguments, &block))
+    end
+
+    def ==(other)
+      other.value == value
+    end
+  end
+
+  def Some(value)
+    Option(value)
   end
 end
