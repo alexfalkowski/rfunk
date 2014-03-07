@@ -8,5 +8,9 @@ require 'rfunk/nothing'
 require 'rfunk/just'
 require 'rfunk/not_found_error'
 require 'rfunk/lazy'
+require 'rfunk/value'
+require 'rfunk/failure'
+require 'rfunk/success'
+require 'rfunk/either'
 
 include RFunk
