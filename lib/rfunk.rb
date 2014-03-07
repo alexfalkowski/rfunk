@@ -7,5 +7,6 @@ require 'rfunk/maybe'
 require 'rfunk/nothing'
 require 'rfunk/just'
 require 'rfunk/not_found_error'
+require 'rfunk/lazy'
 
 include RFunk
