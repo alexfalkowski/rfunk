@@ -5,7 +5,7 @@ module RFunk
     end
 
     def value
-      Some(@value ||= lambda.call)
+      Option(@value ||= lambda.call)
     end
 
     private
