@@ -5,7 +5,16 @@ module RFunk
     end
 
     def result
-      Option(value)
+      case value
+      when Some, None
+        value
+      else
+        Option(value)
+      end
+    end
+
+    def ==(other)
+      other.result == result
     end
 
     private

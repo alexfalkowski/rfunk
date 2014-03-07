@@ -1,6 +1,20 @@
 require 'spec_helper'
 
 describe 'Either' do
+  context 'Some' do
+    Given(:either) { Either(Option('YES')) }
+    When(:result) { either.result }
+    Then { expect(either).to eq(Success(Some('YES'))) }
+    Then { expect(result).to eq(Some('YES')) }
+    Then { expect(result.value).to eq('YES') }
+  end
+
+  context 'None' do
+    Given(:either) { Either(Option(nil)) }
+    When(:result) { either.result }
+    Then { expect(either).to eq(RFunk::Failure(None())) }
+  end
+
   context 'Lambda' do
     context 'Success' do
       Given(:either) { Either(-> { 'YES' }) }
