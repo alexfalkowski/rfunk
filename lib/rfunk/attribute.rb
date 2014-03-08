@@ -7,22 +7,13 @@ module RFunk
     end
 
     def initialize(options = {})
-      attributes = self.class.instance_variable_get(ATTRIBUTES_VARIABLE_NAME)
-
-      options.each { |key, value|
-        raise_not_found(key, attributes)
-
-        type = attributes[key]
-
-        raise_expected_type(key, value, type)
-
-        self.instance_variable_set(variable_name(key), value)
-      }
+      with_defaults
+      with_attributes(options)
     end
 
     module ClassMethods
-      def attribute(name, type)
-        add_attribute(name, type)
+      def attribute(name, type, options = {})
+        add_attribute(name, type, options)
 
         self.send :define_method, name do |value = nil|
           if value
@@ -36,14 +27,37 @@ module RFunk
 
       private
 
-      def add_attribute(name, type)
+      def add_attribute(name, type, options)
         attributes = self.instance_variable_get(ATTRIBUTES_VARIABLE_NAME) || {}
-        attributes[name] = type
+        attributes[name] = AttributeType.new(name, type, options)
         self.instance_variable_set(ATTRIBUTES_VARIABLE_NAME, attributes)
       end
     end
 
     private
+
+    def attributes
+      self.class.instance_variable_get(ATTRIBUTES_VARIABLE_NAME)
+    end
+
+    def with_defaults
+      attributes.each { |key, attribute|
+        value = attribute.options[:default]
+        set_variable(attribute, key, value) if value
+      }
+    end
+
+    def with_attributes(options)
+      options.each { |key, value|
+        raise_not_found(key, attributes)
+        set_variable(attributes[key], key, value)
+      }
+    end
+
+    def set_variable(attribute, key, value)
+      raise_expected_type(key, value, attribute.type)
+      self.instance_variable_set(variable_name(key), value)
+    end
 
     def variable_name(name)
       "@#{name}"
@@ -70,7 +84,7 @@ module RFunk
 
     def raise_not_found(key, attributes)
       unless attributes.key?(key)
-        message = "Attribute with name '#{key}' does not exist. The only available attributes are '#{attributes}'"
+        message = "Attribute with name '#{key}' does not exist. The only available attributes are '#{attributes.keys}'"
         raise RFunk::NotFoundError, message
       end
     end
