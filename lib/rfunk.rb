@@ -9,9 +9,9 @@ require 'rfunk/maybe/none'
 require 'rfunk/maybe/some'
 require 'rfunk/attribute/not_found_error'
 require 'rfunk/lazy'
-require 'rfunk/value'
-require 'rfunk/failure'
-require 'rfunk/success'
-require 'rfunk/either'
+require 'rfunk/either/value'
+require 'rfunk/either/failure'
+require 'rfunk/either/success'
+require 'rfunk/either/either'
 
 include RFunk
