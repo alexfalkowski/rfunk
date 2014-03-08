@@ -11,7 +11,7 @@ module RFunk
     end
 
     def method_missing(method, *arguments, &block)
-      Option(value.__send__(method, *arguments, &block))
+      Option(value.send(method, *arguments, &block))
     end
 
     def ==(other)
