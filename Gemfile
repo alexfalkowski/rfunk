@@ -4,7 +4,6 @@ gem 'ice_nine'
 
 group :development do
   gem 'bundler'
-  gem 'jeweler'
   gem 'rdoc'
 end
 
