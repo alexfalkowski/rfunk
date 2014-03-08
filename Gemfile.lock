@@ -1,3 +1,9 @@
+PATH
+  remote: .
+  specs:
+    rfunk (0.1.0)
+      ice_nine (~> 0.11.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -5,9 +11,6 @@ GEM
     given_core (3.5.4)
       sorcerer (>= 0.3.7)
     ice_nine (0.11.0)
-    json (1.8.1)
-    rdoc (4.1.1)
-      json (~> 1.4)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
@@ -25,7 +28,5 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler
-  ice_nine
-  rdoc
-  rspec-given
+  rfunk!
+  rspec-given (~> 3.5.4)
