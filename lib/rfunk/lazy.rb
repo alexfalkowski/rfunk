@@ -6,7 +6,7 @@ module RFunk
     end
 
     def value
-      Option(@value ||= lambda.call.tap { self.created = true  })
+      Option(@value ||= lambda.call.tap { self.created = true })
     end
 
     def created?
