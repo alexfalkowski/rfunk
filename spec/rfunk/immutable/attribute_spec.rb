@@ -65,22 +65,46 @@ describe RFunk::Attribute do
     end
 
     context 'Customer' do
-      context 'sets multiple attributes' do
+      context 'Multiple' do
         Given(:node) { Customer.new }
-        When(:result) { node.first_name('test').last_name('test') }
-        Then { result.first_name == Some('test') }
-        Then { result.last_name == Some('test') }
+
+        context 'sets multiple attributes with default' do
+          When(:result) { node.first_name('test').last_name('test') }
+          Then { result.first_name == Some('test') }
+          Then { result.last_name == Some('test') }
+          Then { result.title == Some('Mr') }
+        end
+
+        context 'sets multiple attributes' do
+          When(:result) { node.first_name('test').last_name('test').title('test') }
+          Then { result.first_name == Some('test') }
+          Then { result.last_name == Some('test') }
+          Then { result.title == Some('test') }
+        end
       end
 
-      context 'allows creation with constructor parameters' do
-        When(:result) { Customer.new(first_name: 'test', last_name: 'test') }
-        Then { result.first_name == Some('test') }
-        Then { result.last_name == Some('test') }
+      context 'Constructor' do
+        context 'allows creation with default' do
+          When(:result) { Customer.new(first_name: 'test', last_name: 'test') }
+          Then { result.first_name == Some('test') }
+          Then { result.last_name == Some('test') }
+          Then { result.title == Some('Mr') }
+        end
+
+        context 'allows creation' do
+          When(:result) { Customer.new(first_name: 'test', last_name: 'test', title: 'test') }
+          Then { result.first_name == Some('test') }
+          Then { result.last_name == Some('test') }
+          Then { result.title == Some('test') }
+        end
       end
 
       context 'does not allow creation with invalid parameters' do
+        let(:message) {
+          "Attribute with name 'donkey' does not exist. The only available attributes are '[:title, :first_name, :last_name]'"
+        }
         When(:result) { Customer.new(first_name: 'test', donkey: 'test') }
-        Then { result == Failure(RFunk::NotFoundError, "Attribute with name 'donkey' does not exist. The only available attributes are '{:first_name=>String, :last_name=>String}'") }
+        Then { result == Failure(RFunk::NotFoundError, message) }
       end
 
       context 'does not allow creation with invalid type' do
