@@ -1,5 +1,5 @@
 module RFunk
-  class None
+  class None < Option
     include Singleton
 
     def value(default = nil)
@@ -13,6 +13,13 @@ module RFunk
     def method_missing(method, *arguments, &block)
       self
     end
+
+    protected
+
+    def enum
+      []
+    end
+
   end
 
   def None(value = nil)

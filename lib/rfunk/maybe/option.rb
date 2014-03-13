@@ -1,4 +1,14 @@
 module RFunk
+  class Option
+    include Enumerable
+
+    def each(&block)
+      return enum_for(:enum) if block.nil?
+
+      enum.each { |v| block.call(v) }
+    end
+  end
+
   def Option(value)
     if nothing?(value)
       None.instance
