@@ -10,7 +10,9 @@ module RFunk
   end
 
   def Option(value)
-    if nothing?(value)
+    if [Some, None].map { |t| value.is_a?(t) }.any?
+      value
+    elsif nothing?(value)
       None.instance
     else
       Some.new(value)
