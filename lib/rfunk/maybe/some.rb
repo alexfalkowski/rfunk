@@ -1,5 +1,5 @@
 module RFunk
-  class Some
+  class Some < Option
     attr_reader :value
 
     def initialize(value)
@@ -15,7 +15,19 @@ module RFunk
     end
 
     def ==(other)
-      other.value == value
+      return false unless self.class == other.class
+
+      value == other.value
+    end
+
+    def <=>(other)
+      value <=> other.value
+    end
+
+    protected
+
+    def enum
+      [value]
     end
   end
 
