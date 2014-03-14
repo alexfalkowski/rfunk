@@ -3,6 +3,7 @@ require 'ice_nine'
 require 'ice_nine/core_ext/object'
 
 require 'rfunk/attribute/immutable'
+require 'rfunk/attribute/attribute_variable'
 require 'rfunk/attribute/error_checking'
 require 'rfunk/attribute/attribute_type'
 require 'rfunk/attribute/attribute'

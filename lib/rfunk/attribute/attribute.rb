@@ -1,7 +1,5 @@
 module RFunk
   module Attribute
-    ATTRIBUTES_VARIABLE_NAME = '@attributes'
-
     def self.included(base)
       base.extend(ClassMethods)
     end
@@ -13,7 +11,10 @@ module RFunk
 
     module ClassMethods
       def attribute(name, type, options = {})
-        add_attribute(name, type, options)
+        AttributeVariable.new.add(instance: self,
+                                  name: name,
+                                  type: type,
+                                  options: options)
 
         self.send :define_method, name do |value = nil|
           if value
@@ -26,20 +27,12 @@ module RFunk
           end
         end
       end
-
-      private
-
-      def add_attribute(name, type, options)
-        attributes = self.instance_variable_get(ATTRIBUTES_VARIABLE_NAME) || {}
-        attributes[name] = AttributeType.new(name, type, options)
-        self.instance_variable_set(ATTRIBUTES_VARIABLE_NAME, attributes)
-      end
     end
 
     private
 
     def attributes
-      self.class.instance_variable_get(ATTRIBUTES_VARIABLE_NAME)
+      AttributeVariable.new.attributes(self.class)
     end
 
     def with_defaults
