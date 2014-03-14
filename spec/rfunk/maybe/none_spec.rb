@@ -106,5 +106,10 @@ describe RFunk::None do
         Then { result == None() }
       end
     end
+
+    context 'already a None' do
+      When(:result) { Option(None()) }
+      Then { expect(result).to eq(None()) }
+    end
   end
 end

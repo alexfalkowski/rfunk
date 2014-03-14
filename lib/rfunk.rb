@@ -13,5 +13,6 @@ require 'rfunk/either/value'
 require 'rfunk/either/failure'
 require 'rfunk/either/success'
 require 'rfunk/either/either'
+require 'rfunk/tuple'
 
 include RFunk

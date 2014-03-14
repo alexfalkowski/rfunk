@@ -14,7 +14,7 @@ describe RFunk::Some do
       end
 
       context 'hash' do
-        When(:result) { Option({a: 1}) }
+        When(:result) { Option({ a: 1 }) }
         Then { result[:a] == Some(1) }
       end
     end
@@ -24,6 +24,11 @@ describe RFunk::Some do
         When(:result) { Option(1).or(2) }
         Then { result.value == 1 }
       end
+    end
+
+    context 'already a Some' do
+      When(:result) { Option(Some(1)) }
+      Then { expect(result).to eq(Some(1)) }
     end
   end
 end
