@@ -11,10 +11,9 @@ require 'rfunk/maybe/none'
 require 'rfunk/maybe/some'
 require 'rfunk/attribute/not_found_error'
 require 'rfunk/lazy'
-require 'rfunk/either/value'
+require 'rfunk/either/either'
 require 'rfunk/either/failure'
 require 'rfunk/either/success'
-require 'rfunk/either/either'
 require 'rfunk/tuple'
 
 include RFunk

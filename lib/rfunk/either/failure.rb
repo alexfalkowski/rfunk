@@ -1,5 +1,5 @@
 module RFunk
-  class Failure < Value
+  class Failure < Either
     def success?
       false
     end
