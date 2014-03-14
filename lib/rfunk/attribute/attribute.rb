@@ -18,7 +18,9 @@ module RFunk
         self.send :define_method, name do |value = nil|
           if value
             raise_expected_type(name, value, type)
-            create_immutable(variable_name(name), value)
+            Immutable.new.create(instance: self,
+                                 variable_name: variable_name(name),
+                                 value: value)
           else
             Option(self.instance_variable_get(variable_name(name)))
           end
@@ -61,18 +63,6 @@ module RFunk
 
     def variable_name(name)
       "@#{name}"
-    end
-
-    def create_immutable(variable_name, value)
-      self.class.new.tap { |object|
-        self.instance_variables.select { |v| v != variable_name }.each { |v|
-          previous_value = self.instance_variable_get(v)
-          object.instance_variable_set(v, previous_value)
-        }
-
-        object.instance_variable_set(variable_name, value)
-        object.deep_freeze
-      }
     end
 
     def raise_expected_type(name, value, type)

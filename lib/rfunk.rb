@@ -2,6 +2,7 @@ require 'singleton'
 require 'ice_nine'
 require 'ice_nine/core_ext/object'
 
+require 'rfunk/attribute/immutable'
 require 'rfunk/attribute/attribute_type'
 require 'rfunk/attribute/attribute'
 require 'rfunk/maybe/option'
