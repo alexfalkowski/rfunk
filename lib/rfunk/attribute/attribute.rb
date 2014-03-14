@@ -17,7 +17,7 @@ module RFunk
 
         self.send :define_method, name do |value = nil|
           if value
-            raise_expected_type(name, value, type)
+            ErrorChecking.new.raise_expected_type(name, value, type)
             Immutable.new.create(instance: self,
                                  variable_name: variable_name(name),
                                  value: value)
@@ -51,32 +51,18 @@ module RFunk
 
     def with_attributes(options)
       options.each { |key, value|
-        raise_not_found(key, attributes)
+        ErrorChecking.new.raise_not_found(key, attributes)
         set_variable(attributes[key], key, value)
       }
     end
 
     def set_variable(attribute, key, value)
-      raise_expected_type(key, value, attribute.type)
+      ErrorChecking.new.raise_expected_type(key, value, attribute.type)
       self.instance_variable_set(variable_name(key), value)
     end
 
     def variable_name(name)
       "@#{name}"
-    end
-
-    def raise_expected_type(name, value, type)
-      unless value.instance_of?(type)
-        message = "Expected a type of '#{type}' for attribute '#{name}'"
-        raise TypeError, message
-      end
-    end
-
-    def raise_not_found(key, attributes)
-      unless attributes.key?(key)
-        message = "Attribute with name '#{key}' does not exist. The only available attributes are '#{attributes.keys}'"
-        raise RFunk::NotFoundError, message
-      end
     end
   end
 end
