@@ -1,6 +1,10 @@
 class VariableClass
   include RFunk::Attribute
 
+  def undefined
+    var(:hello)
+  end
+
   def declare_valid
     var hello: 'Hello'
 

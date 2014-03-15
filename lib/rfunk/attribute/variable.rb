@@ -14,7 +14,7 @@ module RFunk
           self.instance_variable_set(name, options)
         end
       else
-        Some(self.instance_variable_get(name)[options])
+        Some(Some(self.instance_variable_get(name))[options])
       end
     end
   end
