@@ -1,0 +1,2 @@
+class InheritedClass < AttributeClass
+end
