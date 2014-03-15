@@ -1,8 +1,14 @@
 require 'spec_helper'
 require_relative 'attribute_class'
+require_relative 'empty_attribute_class'
 require_relative 'customer'
 
 describe RFunk::Attribute do
+  context 'EmptyAttributeClass' do
+    When(:value) { EmptyAttributeClass.new }
+    Then { value != Failure }
+  end
+
   context 'AttributeClass' do
     context 'has a get attribute that defaults to Nothing' do
       Given(:node) { AttributeClass.new }

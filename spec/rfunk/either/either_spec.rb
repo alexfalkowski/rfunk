@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Either' do
+describe RFunk::Either do
   context 'Some' do
     Given(:either) { Either(Option('YES')) }
     When(:result) { either.result }

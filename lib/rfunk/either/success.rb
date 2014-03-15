@@ -1,5 +1,5 @@
 module RFunk
-  class Success < Value
+  class Success < Either
     def success?
       true
     end
