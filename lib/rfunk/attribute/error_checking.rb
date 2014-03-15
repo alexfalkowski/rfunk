@@ -13,5 +13,11 @@ module RFunk
         raise RFunk::NotFoundError, message
       end
     end
+
+    def raise_immutable(options, variable)
+      keys = options.keys.select { |k| variable.has_key?(k) }
+      message = "Could not set variables '#{keys}', because variables are immutable."
+      raise ImmutableError, message if keys.any?
+    end
   end
 end
