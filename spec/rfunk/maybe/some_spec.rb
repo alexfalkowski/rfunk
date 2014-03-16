@@ -7,18 +7,6 @@ describe RFunk::Some do
       Then { result.value == 1 }
     end
 
-    context 'coerce a value' do
-      context 'Integer' do
-        When(:result) { Option(1) + Option(2) }
-        Then { result == Some(3) }
-      end
-
-      context 'String' do
-        When(:result) { Option('hello ') + Option('world') }
-        Then { result == Some('hello world') }
-      end
-    end
-
     context 'get a value with consistent interface' do
       When(:result) { Option(1) }
       Then { result.value('test') == 1 }
