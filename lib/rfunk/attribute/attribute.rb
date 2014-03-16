@@ -18,7 +18,7 @@ module RFunk
                                   type: type,
                                   options: options)
 
-        self.send :define_method, name do |value = nil|
+        define_method(name) { |value = nil|
           if value
             ErrorChecking.new.raise_expected_type(name, value, type)
             Immutable.new.create(instance: self,
@@ -27,7 +27,7 @@ module RFunk
           else
             Option(self.instance_variable_get(variable_name(name)))
           end
-        end
+        }
       end
     end
 
