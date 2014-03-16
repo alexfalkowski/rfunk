@@ -40,6 +40,10 @@ module RFunk
       value
     end
 
+    def to_hash
+      value
+    end
+
     def_delegators :@value, :to_s, :inspect, :respond_to?
 
     protected
