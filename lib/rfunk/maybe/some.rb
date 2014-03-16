@@ -36,6 +36,10 @@ module RFunk
       value
     end
 
+    def to_ary
+      value
+    end
+
     def_delegators :@value, :to_s, :inspect
 
     protected

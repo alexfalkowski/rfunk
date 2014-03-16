@@ -17,6 +17,11 @@ describe RFunk::Some do
         When(:result) { Option('hello ') + Option('world') }
         Then { result == Some('hello world') }
       end
+
+      context 'Array' do
+        When(:result) { Option(['a']) + Option(['b']) }
+        Then { result == Some(%w(a b)) }
+      end
     end
 
     context 'get a value with consistent interface' do
