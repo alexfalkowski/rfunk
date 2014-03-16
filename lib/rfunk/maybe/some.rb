@@ -1,5 +1,7 @@
 module RFunk
   class Some < Option
+    extend Forwardable
+
     def initialize(value)
       @value = value
     end
@@ -25,6 +27,16 @@ module RFunk
     def <=>(other)
       value <=> other.value
     end
+
+    def coerce(other)
+      [other, value]
+    end
+
+    def to_str
+      value
+    end
+
+    def_delegators :@value, :to_s, :inspect
 
     protected
 
