@@ -1,9 +1,11 @@
 module RFunk
   class Some < Option
-    attr_reader :value
-
     def initialize(value)
       @value = value
+    end
+
+    def value(_ = None())
+      @value
     end
 
     def or(_)
