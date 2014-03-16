@@ -14,12 +14,23 @@ module RFunk
       self
     end
 
+    def coerce(other)
+      [other, 0]
+    end
+
+    def to_str
+      ''
+    end
+
+    def to_ary
+      []
+    end
+
     protected
 
     def enum
       []
     end
-
   end
 
   def None(value = nil)
