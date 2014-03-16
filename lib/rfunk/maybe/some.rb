@@ -26,6 +26,14 @@ module RFunk
       value <=> other.value
     end
 
+    def coerce(other)
+      [other, value]
+    end
+
+    def to_str
+      value
+    end
+
     protected
 
     def enum
