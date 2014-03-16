@@ -7,6 +7,11 @@ describe 'Coerce' do
       Then { result == Some(3) }
     end
 
+    context 'Float' do
+      When(:result) { Option(1.0) + Option(2.3) }
+      Then { result == Some(3.3) }
+    end
+
     context 'String' do
       When(:result) { Option('hello ') + Option('world') }
       Then { result == Some('hello world') }
@@ -22,6 +27,11 @@ describe 'Coerce' do
     context 'Integer' do
       When(:result) { Option(1) + None() }
       Then { result == Some(1) }
+    end
+
+    context 'Float' do
+      When(:result) { Option(1.7) + None() }
+      Then { result == Some(1.7) }
     end
 
     context 'String' do
