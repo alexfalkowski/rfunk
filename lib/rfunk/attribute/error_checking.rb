@@ -1,7 +1,7 @@
 module RFunk
   class ErrorChecking
     def raise_expected_type(name, value, type)
-      unless value.instance_of?(type)
+      unless value.is_a?(type)
         message = "Expected a type of '#{type}' for attribute '#{name}'"
         raise TypeError, message
       end

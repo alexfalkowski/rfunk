@@ -7,6 +7,11 @@ describe RFunk::Some do
       Then { result.value == 1 }
     end
 
+    context 'get a value with consistent interface' do
+      When(:result) { Option(1) }
+      Then { result.value('test') == 1 }
+    end
+
     context 'methods on object' do
       context 'string' do
         When(:result) { Option('TEST') }

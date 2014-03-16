@@ -14,9 +14,17 @@ describe RFunk::Variable do
     Then { expect(result).to eq(Some('Multiple')) }
   end
 
+  context 'Undefined variable' do
+    Given(:variable) { VariableClass.new }
+    When(:result) { variable.undefined }
+    Then { expect(result).to eq(None()) }
+  end
+
   context 'Override an existing variable' do
     Given(:variable) { VariableClass.new }
     When(:result) { variable.override_existing }
-    Then { result == Failure(ImmutableError, "Could not set variables '[:hello]', because variables are immutable.") }
+    Then {
+      result == Failure(ImmutableError, "Could not set variables '[:hello]', because variables are immutable.")
+    }
   end
 end

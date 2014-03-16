@@ -22,6 +22,6 @@ module RFunk
   private
 
   def nothing?(value)
-    value.nil? || (value.respond_to?(:empty?) && value.empty?) || value.is_a?(None)
+    value.nil? || (value.respond_to?(:empty?) && value.empty?) || value == None.instance
   end
 end
