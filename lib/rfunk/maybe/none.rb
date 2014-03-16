@@ -26,6 +26,10 @@ module RFunk
       []
     end
 
+    def to_hash
+      {}
+    end
+
     protected
 
     def enum
