@@ -1,6 +1,12 @@
 require 'spec_helper'
 
 describe RFunk::Tuple do
+  context 'Immutable' do
+    Given(:tuple) { Tuple(1, 'test') }
+    When(:result) { tuple.send(:values) << 'a' }
+    Then { result == Failure(RuntimeError, "can't modify frozen Array") }
+  end
+
   context 'get a value' do
     context 'Some' do
       When(:result) { Tuple(1, 'test') }

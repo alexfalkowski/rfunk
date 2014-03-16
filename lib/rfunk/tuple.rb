@@ -2,6 +2,7 @@ module RFunk
   class Tuple
     def initialize(values)
       @values = values
+      deep_freeze
     end
 
     def value(*args)
