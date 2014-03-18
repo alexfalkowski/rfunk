@@ -1,11 +1,25 @@
 require 'spec_helper'
 require_relative 'variable_class'
 
-describe RFunk::Variable do
-  context 'Declaring a variable' do
+describe RFunk::AttributeFunction do
+  context 'Declaring' do
+    context 'Call once' do
+      Given(:variable) { VariableClass.new }
+      When(:result) { variable.declare_valid }
+      Then { expect(result).to eq(Some('Hello')) }
+    end
+
+    context 'Call twice' do
+      Given(:variable) { VariableClass.new }
+      When(:result) { variable.declare_valid; variable.declare_valid }
+      Then { expect(result).to eq(Some('Hello')) }
+    end
+  end
+
+  context 'With parameters' do
     Given(:variable) { VariableClass.new }
-    When(:result) { variable.declare_valid }
-    Then { expect(result).to eq(Some('Hello')) }
+    When(:result) { variable.multiple_parameters('Parameters') }
+    Then { expect(result).to eq(Some('Parameters')) }
   end
 
   context 'Declaring multiple variables' do

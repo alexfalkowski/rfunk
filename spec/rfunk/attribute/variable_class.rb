@@ -1,25 +1,29 @@
 class VariableClass
   include RFunk::Attribute
 
-  def undefined
-    var(:hello)
+  fun(:undefined) { |f|
+    f.var(:hello)
+  }
+
+  fun(:multiple_parameters) { |f, m|
+    f.var hello: m
+    f.var(:hello)
+  }
+
+  fun :declare_valid do |f|
+    f.var hello: 'Hello'
+    f.var(:hello)
   end
 
-  def declare_valid
-    var hello: 'Hello'
+  fun :declare_multiple do |f|
+    f.var hello: 'Hello'
+    f.var multiple: 'Multiple'
 
-    var(:hello)
+    f.var(:multiple)
   end
 
-  def declare_multiple
-    var hello: 'Hello'
-    var multiple: 'Multiple'
-
-    var(:multiple)
-  end
-
-  def override_existing
-    var hello: 'Hello'
-    var hello: 'Hello'
+  fun :override_existing do |f|
+    f.var hello: 'Hello'
+    f.var hello: 'Hello'
   end
 end

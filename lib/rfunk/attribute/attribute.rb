@@ -1,9 +1,8 @@
 module RFunk
   module Attribute
-    include RFunk::Variable
-
     def self.included(base)
       base.extend(ClassMethods)
+      base.extend(RFunk::AttributeFunction)
     end
 
     def initialize(options = {})
