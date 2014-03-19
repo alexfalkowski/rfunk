@@ -63,10 +63,10 @@ In the Hickeysian universe, a State is a specific value for an identity at a poi
     customer = Customer.new
 
     customer.first_name == None()
-    customer.first_name('test').last_name('test')
-    customer.first_name == Some('test')
-    customer.last_name == Some('test')
-    customer.first_name = 1 == Failure(TypeError, "Expected a type of 'String' for attribute 'first_name'")
+    test_customer = customer.first_name('test').last_name('test')
+    test_customer.first_name == Some('test')
+    test_customer.last_name == Some('test')
+    test_customer.first_name = 1 == Failure(TypeError, "Expected a type of 'String' for attribute 'first_name'")
 
     customer = Customer.new(first_name: 'test', last_name: 'test')
     customer.first_name == Some('test')
