@@ -1,6 +1,16 @@
 class VariableClass
   include RFunk::Attribute
 
+  attribute :first_name, String
+  attribute :last_name, String
+
+  fun :full_name do |f, first_name, last_name|
+    f.var first_name: first_name
+    f.var last_name: last_name
+
+    first_name(f.var(:first_name)).last_name(f.var(:last_name))
+  end
+
   fun(:undefined) { |f|
     f.var(:hello)
   }

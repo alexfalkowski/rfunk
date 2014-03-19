@@ -51,7 +51,7 @@ And it has to be "right now", because there's no language-supported way of holdi
 This becomes clearer if you contrast it with the notion of identity in FP.
 In the Hickeysian universe, a State is a specific value for an identity at a point in time.
 
-### How do we use this?
+### Immutable classes
 
     class Customer
       include RFunk::Attribute
@@ -63,14 +63,37 @@ In the Hickeysian universe, a State is a specific value for an identity at a poi
     customer = Customer.new
 
     customer.first_name == None()
-    customer.first_name('test').last_name('test')
-    customer.first_name == Some('test')
-    customer.last_name == Some('test')
-    customer.first_name = 1 == Failure(TypeError, "Expected a type of 'String' for attribute 'first_name'")
+    test_customer = customer.first_name('test').last_name('test')
+    test_customer.first_name == Some('test')
+    test_customer.last_name == Some('test')
+    test_customer.first_name = 1 == Failure(TypeError, "Expected a type of 'String' for attribute 'first_name'")
 
     customer = Customer.new(first_name: 'test', last_name: 'test')
     customer.first_name == Some('test')
     customer.last_name == Some('test')
+
+### Immutable variables
+
+    class Customer
+      include RFunk::Attribute
+
+      fun :full_name do |f|
+        f.var name: 'Alex'
+
+        f.var(:name)
+      end
+
+      fun :immutable_full_name do |f|
+        f.var name: 'Alex'
+        f.var name: 'Alex'
+
+        f.var(:name)
+      end
+    end
+
+    customer = Customer.new
+    customer.full_name == Some('Alex')
+    customer.immutable_full_name == Failure(ImmutableError, "Could not set variables '[:name]', because variables are immutable.")
 
 ## Lazy
 
