@@ -16,6 +16,13 @@ describe RFunk::AttributeFunction do
     end
   end
 
+  context 'set attributes of class' do
+    Given(:variable) { VariableClass.new }
+    When(:result) { variable.full_name('Alex', 'Falkowski') }
+    Then { expect(result.first_name).to eq(Some('Alex')) }
+    Then { expect(result.last_name).to eq(Some('Falkowski')) }
+  end
+
   context 'With parameters' do
     Given(:variable) { VariableClass.new }
     When(:result) { variable.multiple_parameters('Parameters') }
