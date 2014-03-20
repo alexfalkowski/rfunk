@@ -3,10 +3,12 @@ module RFunk
     def initialize(lambda)
       @lambda = lambda
       @created = false
+      @atomic = Atomic.new
     end
 
     def value
-      Option(@value ||= lambda.call.tap { self.created = true })
+      atomic.update { @value ||= lambda.call.tap { self.created = true } }
+      Option(atomic.value)
     end
 
     def created?
@@ -15,7 +17,7 @@ module RFunk
 
     private
 
-    attr_reader :lambda
+    attr_reader :lambda, :atomic
     attr_accessor :created
   end
 
