@@ -77,17 +77,17 @@ In the Hickeysian universe, a State is a specific value for an identity at a poi
     class Customer
       include RFunk::Attribute
 
-      fun :full_name do |f|
-        f.var name: 'Alex'
+      fun :full_name do
+        var name: 'Alex'
 
-        f.var(:name)
+        var(:name)
       end
 
-      fun :immutable_full_name do |f|
-        f.var name: 'Alex'
-        f.var name: 'Alex'
+      fun :immutable_full_name do
+        var name: 'Alex'
+        var name: 'Alex'
 
-        f.var(:name)
+        var(:name)
       end
     end
 
