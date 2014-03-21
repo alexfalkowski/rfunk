@@ -95,6 +95,33 @@ In the Hickeysian universe, a State is a specific value for an identity at a poi
     customer.full_name == Some('Alex')
     customer.immutable_full_name == Failure(ImmutableError, "Could not set variables '[:name]', because variables are immutable.")
 
+## Design by Contract
+
+As stated by [Wikipedia](http://en.wikipedia.org/wiki/Design_by_contract)
+
+> Design by contract (DbC), also known as contract programming, programming by contract and design-by-contract programming,
+is an approach for designing software. It prescribes that software designers should define formal, precise and verifiable
+interface specifications for software components, which extend the ordinary definition of abstract data types with preconditions,
+postconditions and invariants. These specifications are referred to as "contracts", in accordance with a conceptual
+metaphor with the conditions and obligations of business contracts.
+
+### How do we use this?
+
+    fun :say_hello do |name|
+      pre {
+        assert { name == Some('Bob') }
+      }
+
+      body {
+        var return: "Hello #{name}!"
+        var(:return)
+      }
+
+      post {
+        var(:return) == Some('Hello Bob!')
+      }
+    end
+
 ## Lazy
 
 Lazy initialization is the tactic of delaying the creation of an object, the calculation of a value,
