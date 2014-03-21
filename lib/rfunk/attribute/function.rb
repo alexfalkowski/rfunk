@@ -13,7 +13,7 @@ module RFunk
         if variables.empty?
           self.variables = options
         else
-          ErrorChecking.new.raise_immutable(options, variables)
+          error_checking.raise_immutable(options, variables)
           self.variables = variables.merge(options)
         end
       else
@@ -21,8 +21,46 @@ module RFunk
       end
     end
 
+    def assert(&_)
+      if yield
+        true
+      else
+        raise AssertionError
+      end
+    end
+
+    def pre(&block)
+      @pre_block = block
+    end
+
+    def post(&block)
+      @post_block = block
+    end
+
+    def body(&block)
+      @body_block = block
+    end
+
     def execute(*args)
-      instance_exec(*args, &block)
+      result = instance_exec(*args, &block)
+
+      if body_block
+        if pre_block
+          instance_eval(&pre_block).tap { |r|
+            error_checking.raise_condition_error(PreConditionError, r)
+          }
+        end
+
+        Option(instance_eval(&body_block)).tap {
+          if post_block
+            instance_eval(&post_block).tap { |r|
+              error_checking.raise_condition_error(PostConditionError, r)
+            }
+          end
+        }
+      else
+        Option(result)
+      end
     end
 
     def method_missing(method, *arguments, &block)
@@ -31,6 +69,11 @@ module RFunk
 
     private
 
-    attr_accessor :variables, :block
+    attr_reader :block, :pre_block, :post_block, :body_block
+    attr_accessor :variables
+
+    def error_checking
+      @error_checking ||= ErrorChecking.new
+    end
   end
 end

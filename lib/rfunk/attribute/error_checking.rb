@@ -1,5 +1,9 @@
 module RFunk
   class ErrorChecking
+    def raise_condition_error(type, value)
+      raise type, 'The condition was not met!' unless value
+    end
+
     def raise_expected_type(name, value, type)
       case value
       when Some
