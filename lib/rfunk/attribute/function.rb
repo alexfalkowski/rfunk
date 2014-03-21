@@ -1,6 +1,10 @@
 module RFunk
   class Function
-    def initialize
+    attr_reader :this
+
+    def initialize(this, &block)
+      @this = this
+      @block = block
       @variables = {}
     end
 
@@ -17,8 +21,16 @@ module RFunk
       end
     end
 
+    def execute(*args)
+      instance_exec(*args, &block)
+    end
+
+    def method_missing(method, *arguments, &block)
+      this.send(method, *arguments, &block)
+    end
+
     private
 
-    attr_accessor :variables
+    attr_accessor :variables, :block
   end
 end
