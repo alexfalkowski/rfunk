@@ -77,23 +77,50 @@ In the Hickeysian universe, a State is a specific value for an identity at a poi
     class Customer
       include RFunk::Attribute
 
-      fun :full_name do |f|
-        f.var name: 'Alex'
+      fun :full_name do
+        var name: 'Alex'
 
-        f.var(:name)
+        var(:name)
       end
 
-      fun :immutable_full_name do |f|
-        f.var name: 'Alex'
-        f.var name: 'Alex'
+      fun :immutable_full_name do
+        var name: 'Alex'
+        var name: 'Alex'
 
-        f.var(:name)
+        var(:name)
       end
     end
 
     customer = Customer.new
     customer.full_name == Some('Alex')
     customer.immutable_full_name == Failure(ImmutableError, "Could not set variables '[:name]', because variables are immutable.")
+
+## Design by Contract
+
+As stated by [Wikipedia](http://en.wikipedia.org/wiki/Design_by_contract)
+
+> Design by contract (DbC), also known as contract programming, programming by contract and design-by-contract programming,
+is an approach for designing software. It prescribes that software designers should define formal, precise and verifiable
+interface specifications for software components, which extend the ordinary definition of abstract data types with preconditions,
+postconditions and invariants. These specifications are referred to as "contracts", in accordance with a conceptual
+metaphor with the conditions and obligations of business contracts.
+
+### How do we use this?
+
+    fun :say_hello do |name|
+      pre {
+        assert { name == Some('Bob') }
+      }
+
+      body {
+        var return: "Hello #{name}!"
+        var(:return)
+      }
+
+      post {
+        var(:return) == Some('Hello Bob!')
+      }
+    end
 
 ## Lazy
 

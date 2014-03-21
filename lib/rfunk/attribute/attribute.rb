@@ -1,33 +1,13 @@
 module RFunk
   module Attribute
     def self.included(base)
-      base.extend(ClassMethods)
+      base.extend(RFunk::AttributeDefinition)
       base.extend(RFunk::AttributeFunction)
     end
 
     def initialize(options = {})
       with_defaults
       with_attributes(options)
-    end
-
-    module ClassMethods
-      def attribute(name, type, options = {})
-        AttributeVariable.new.add(instance: self,
-                                  name: name,
-                                  type: type,
-                                  options: options)
-
-        define_method(name) { |value = nil|
-          if value
-            ErrorChecking.new.raise_expected_type(name, value, type)
-            Immutable.new.create(instance: self,
-                                 variable_name: variable_name(name),
-                                 value: value)
-          else
-            Option(self.instance_variable_get(variable_name(name)))
-          end
-        }
-      end
     end
 
     private

@@ -4,36 +4,36 @@ class VariableClass
   attribute :first_name, String
   attribute :last_name, String
 
-  fun :full_name do |f, first_name, last_name|
-    f.var first_name: first_name
-    f.var last_name: last_name
+  fun :full_name do |first_name, last_name|
+    var first_name: first_name
+    var last_name: last_name
 
-    first_name(f.var(:first_name)).last_name(f.var(:last_name))
+    first_name(var(:first_name)).last_name(var(:last_name))
   end
 
-  fun(:undefined) { |f|
-    f.var(:hello)
-  }
-
-  fun(:multiple_parameters) { |f, m|
-    f.var hello: m
-    f.var(:hello)
-  }
-
-  fun :declare_valid do |f|
-    f.var hello: 'Hello'
-    f.var(:hello)
+  fun :undefined do
+    var(:hello)
   end
 
-  fun :declare_multiple do |f|
-    f.var hello: 'Hello'
-    f.var multiple: 'Multiple'
-
-    f.var(:multiple)
+  fun :multiple_parameters do |m|
+    var hello: m
+    var(:hello)
   end
 
-  fun :override_existing do |f|
-    f.var hello: 'Hello'
-    f.var hello: 'Hello'
+  fun :declare_valid do
+    var hello: 'Hello'
+    var(:hello)
+  end
+
+  fun :declare_multiple do
+    var hello: 'Hello'
+    var multiple: 'Multiple'
+
+    var(:multiple)
+  end
+
+  fun :override_existing do
+    var hello: 'Hello'
+    var hello: 'Hello'
   end
 end
