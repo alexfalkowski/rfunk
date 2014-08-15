@@ -20,7 +20,7 @@ describe RFunk::Attribute do
     context 'sets an attribute' do
       Given(:node) { AttributeClass.new }
       When(:result) { node.name('test') }
-      Then { not result.equal? node  }
+      Then { not result.equal? node }
       Then { result.name == Some('test') }
     end
 
@@ -81,7 +81,7 @@ describe RFunk::Attribute do
       context 'sets an attribute' do
         Given(:node) { InheritedClass.new }
         When(:result) { node.name('test') }
-        Then { not result.equal? node  }
+        Then { not result.equal? node }
         Then { result.name == Some('test') }
       end
 
@@ -170,7 +170,7 @@ describe RFunk::Attribute do
 
       context 'does not allow creation with invalid parameters' do
         let(:message) {
-          "Attribute with name 'donkey' does not exist. The only available attributes are '[:title, :first_name, :last_name]'"
+          "Attribute with name 'donkey' does not exist. The only available attributes are '[:title, :first_name, :last_name, :options]'"
         }
         When(:result) { Customer.new(first_name: 'test', donkey: 'test') }
         Then { result == Failure(RFunk::NotFoundError, message) }
@@ -179,6 +179,19 @@ describe RFunk::Attribute do
       context 'does not allow creation with invalid type' do
         When(:result) { Customer.new(first_name: 'test', last_name: []) }
         Then { result == Failure(TypeError, "Expected a type of 'String' for attribute 'last_name'") }
+      end
+
+      context 'Efficient, immutable, and thread-safe collection classes for Ruby.' do
+        Given(:customer) { Customer.new }
+
+        context 'Default options' do
+          Then { customer.options == Some(Hamster.hash(name: 'Simon', gender: :male)) }
+        end
+
+        context 'replace hash value' do
+          When(:result) { customer.options(customer.options.put(:name, 'James')) }
+          Then { result.options == Some(Hamster.hash(name: 'James', gender: :male)) }
+        end
       end
     end
   end
