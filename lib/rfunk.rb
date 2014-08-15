@@ -1,7 +1,7 @@
 require 'singleton'
-require 'atomic'
 require 'ice_nine'
 require 'ice_nine/core_ext/object'
+require 'concurrent'
 
 require 'rfunk/attribute/immutable'
 require 'rfunk/attribute/not_found_error'
