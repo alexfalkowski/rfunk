@@ -48,4 +48,10 @@ describe RFunk::AttributeFunction do
       result == Failure(ImmutableError, "Could not set variables '[:hello]', because variables are immutable.")
     }
   end
+
+  context 'Thread safe' do
+    Given(:variable) { VariableClass.new }
+    When(:threads) { 20.times.map { |i| Thread.new { variable.full_name("Alex#{i}", 'Falkowski') } } }
+    Then { threads.each { |t| t.join } }
+  end
 end

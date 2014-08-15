@@ -11,11 +11,11 @@ class VariableClass
     first_name(var(:first_name)).last_name(var(:last_name))
   end
 
-  fun :undefined do
+  func :undefined do
     var(:hello)
   end
 
-  fun :multiple_parameters do |m|
+  defn :multiple_parameters do |m|
     var hello: m
     var(:hello)
   end
