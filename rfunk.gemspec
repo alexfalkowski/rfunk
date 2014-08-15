@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'ice_nine', '~> 0.11.0'
   s.add_dependency 'concurrent-ruby', '~> 0.7.0'
+  s.add_dependency 'hamster', '~> 0.4.3'
 
   s.add_development_dependency 'rake', '~> 10.3.2'
   s.add_development_dependency 'rspec', '~> 2.14.1'
