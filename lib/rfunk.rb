@@ -2,6 +2,7 @@ require 'singleton'
 require 'ice_nine'
 require 'ice_nine/core_ext/object'
 require 'concurrent'
+require 'hamster'
 
 require 'rfunk/attribute/immutable'
 require 'rfunk/attribute/not_found_error'
