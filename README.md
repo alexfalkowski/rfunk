@@ -139,6 +139,15 @@ or some other expensive process until the first time it is needed.
 
     lazy = Lazy(-> { 'Lazy' })
     lazy.created? == false
+    
+## Third party libraries
+
+We have added the following dependencies:
+
+* [concurrent-ruby](https://github.com/ruby-concurrency/concurrent-ruby)
+* [hamster](https://github.com/hamstergem/hamster)
+
+This will allow you to more functional concepts.
 
 ## Contributing to rfunk
 
