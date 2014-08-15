@@ -29,14 +29,14 @@ describe RFunk::Attribute do
         Given(:node) { AttributeClass.new }
         Given(:new_node) { node.name('test') }
         When(:result) { new_node.name.replace('REALLY_DONKEY') }
-        Then { result == Failure(RuntimeError, "can't modify frozen String") }
+        Then { result == Failure(RuntimeError, /frozen/) }
       end
 
       context 'instance_variable_set the string value' do
         Given(:node) { AttributeClass.new }
         Given(:new_node) { node.name('test') }
         When(:result) { new_node.instance_variable_set(:@name, 'update') }
-        Then { result == Failure(RuntimeError, "can't modify frozen AttributeClass") }
+        Then { result == Failure(RuntimeError, /frozen/) }
       end
     end
 
@@ -45,14 +45,14 @@ describe RFunk::Attribute do
         Given(:node) { AttributeClass.new }
         Given(:new_node) { node.array([1, 2, 3]) }
         When(:result) { new_node.array << 4 }
-        Then { result == Failure(RuntimeError, "can't modify frozen Array") }
+        Then { result == Failure(RuntimeError, /frozen/) }
       end
 
       context 'instance_variable_set the array value' do
         Given(:node) { AttributeClass.new }
         Given(:new_node) { node.array([1, 2, 3]) }
         When(:result) { new_node.instance_variable_set(:@array, [1, 2, 3, 4]) }
-        Then { result == Failure(RuntimeError, "can't modify frozen AttributeClass") }
+        Then { result == Failure(RuntimeError, /frozen/) }
       end
 
       context 'Hash with Array' do
@@ -60,7 +60,7 @@ describe RFunk::Attribute do
           Given(:node) { AttributeClass.new }
           Given(:new_node) { node.hash(a: [1, 2, 3]) }
           When(:result) { new_node.hash[:a] << 4 }
-          Then { result == Failure(RuntimeError, "can't modify frozen Array") }
+          Then { result == Failure(RuntimeError, /frozen/) }
         end
       end
 
@@ -90,14 +90,14 @@ describe RFunk::Attribute do
           Given(:node) { InheritedClass.new }
           Given(:new_node) { node.name('test') }
           When(:result) { new_node.name.replace('REALLY_DONKEY') }
-          Then { result == Failure(RuntimeError, "can't modify frozen String") }
+          Then { result == Failure(RuntimeError, /frozen/) }
         end
 
         context 'instance_variable_set the string value' do
           Given(:node) { AttributeClass.new }
           Given(:new_node) { node.name('test') }
           When(:result) { new_node.instance_variable_set(:@name, 'update') }
-          Then { result == Failure(RuntimeError, "can't modify frozen AttributeClass") }
+          Then { result == Failure(RuntimeError, /frozen/) }
         end
       end
 
@@ -106,14 +106,14 @@ describe RFunk::Attribute do
           Given(:node) { InheritedClass.new }
           Given(:new_node) { node.array([1, 2, 3]) }
           When(:result) { new_node.array << 4 }
-          Then { result == Failure(RuntimeError, "can't modify frozen Array") }
+          Then { result == Failure(RuntimeError, /frozen/) }
         end
 
         context 'instance_variable_set the array value' do
           Given(:node) { InheritedClass.new }
           Given(:new_node) { node.array([1, 2, 3]) }
           When(:result) { new_node.instance_variable_set(:@array, [1, 2, 3, 4]) }
-          Then { result == Failure(RuntimeError, "can't modify frozen InheritedClass") }
+          Then { result == Failure(RuntimeError, /frozen/) }
         end
 
         context 'Hash with Array' do
@@ -121,7 +121,7 @@ describe RFunk::Attribute do
             Given(:node) { InheritedClass.new }
             Given(:new_node) { node.hash(a: [1, 2, 3]) }
             When(:result) { new_node.hash[:a] << 4 }
-            Then { result == Failure(RuntimeError, "can't modify frozen Array") }
+            Then { result == Failure(RuntimeError, /frozen/) }
           end
         end
 
