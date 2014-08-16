@@ -12,8 +12,14 @@ module RFunk
         }
 
         object.instance_variable_set(variable_name, value)
-        object.deep_freeze
+        object.deep_freeze if should_deep_freeze?(value)
       }
+    end
+
+    private
+
+    def should_deep_freeze?(value)
+      ['Hamster'].none? { |m| value.class.to_s.include?(m) }
     end
   end
 end

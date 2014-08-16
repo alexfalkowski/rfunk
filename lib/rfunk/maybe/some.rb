@@ -38,7 +38,7 @@ module RFunk
       }
     }
 
-    def_delegators :@value, :to_s, :inspect, :respond_to?
+    def_delegators :@value, :to_s, :inspect, :respond_to?, :class
 
     protected
 
