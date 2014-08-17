@@ -14,6 +14,14 @@ describe RFunk::AttributeFunction do
       When(:result) { variable.declare_valid; variable.declare_valid }
       Then { expect(result).to eq(Some('Hello')) }
     end
+
+    context 'Invalid return type' do
+      Given(:variable) { VariableClass.new }
+      When(:result) { variable.invalid_return_type }
+      Then {
+        result == Failure(TypeError, "Expected a type of 'Integer' for return 'invalid_return_type'")
+      }
+    end
   end
 
   context 'set attributes of class' do

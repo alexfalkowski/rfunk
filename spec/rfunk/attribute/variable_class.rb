@@ -20,9 +20,14 @@ class VariableClass
     var(:hello)
   end
 
-  fn :declare_valid do
+  fn :declare_valid => String do
     var hello: 'Hello'
     var(:hello)
+  end
+
+  fun :invalid_return_type => Integer do
+    var string: 'Hello'
+    var(:string)
   end
 
   fun :declare_multiple do
