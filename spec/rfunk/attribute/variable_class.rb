@@ -20,7 +20,7 @@ class VariableClass
     var(:hello)
   end
 
-  fun :declare_valid do
+  fn :declare_valid do
     var hello: 'Hello'
     var(:hello)
   end
