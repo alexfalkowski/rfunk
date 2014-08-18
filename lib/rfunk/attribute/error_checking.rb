@@ -8,8 +8,12 @@ module RFunk
       raise_return_type_with_message name, value, type, 'return'
     end
 
-    def raise_expected_type(name, value, type)
+    def raise_expected_attribute_type(name, value, type)
       raise_return_type_with_message name, value, type, 'attribute'
+    end
+
+    def raise_expected_parameter_type(name, value, type)
+      raise_return_type_with_message name, value, type, 'parameter'
     end
 
     def raise_not_found(key, attributes)

@@ -142,10 +142,9 @@ metaphor with the conditions and obligations of business contracts.
     
 ## Types
 
-RFunk has the ability to specify return types as a part of a function definition. This will all be evaluated
-during the runtime.
+RFunk has the ability to specify types as a part of a function definition.
 
-### How do we use this?
+### Return Types
 
     fun :say_hello => String do |name|
       pre {
@@ -165,6 +164,27 @@ during the runtime.
 If the return type is not a string we would get the following error:
  
     Failure(TypeError, "Expected a type of 'String' for return 'say_hello'")
+    
+### Parameter Types
+
+    fun :say_hello => 'String -> String' do |name|
+      pre {
+        assert { name == Some('Bob') }
+      }
+
+      body {
+        var return: "Hello #{name}!"
+        var(:return)
+      }
+
+      post {
+        var(:return) == Some('Hello Bob!')
+      }
+    end
+    
+If the parameter type is not a string we would get the following error:
+ 
+    Failure(TypeError, "Expected a type of 'String' for parameter '1'")
     
 ## Functions
 
