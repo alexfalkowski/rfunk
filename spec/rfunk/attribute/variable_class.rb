@@ -15,8 +15,8 @@ class VariableClass
     var(:hello)
   end
 
-  defn :multiple_parameters do |m|
-    var hello: m
+  defn :parameter => 'String -> String' do |m|
+    var hello: m.to_s
     var(:hello)
   end
 

@@ -32,9 +32,17 @@ describe RFunk::AttributeFunction do
   end
 
   context 'With parameters' do
-    Given(:variable) { VariableClass.new }
-    When(:result) { variable.multiple_parameters('Parameters') }
-    Then { expect(result).to eq(Some('Parameters')) }
+    context 'Valid' do
+      Given(:variable) { VariableClass.new }
+      When(:result) { variable.parameter('Parameters') }
+      Then { expect(result).to eq(Some('Parameters')) }
+    end
+
+    context 'Invalid' do
+      Given(:variable) { VariableClass.new }
+      When(:result) { variable.parameter(1) }
+      Then { result == Failure(TypeError, "Expected a type of 'String' for parameter '1'") }
+    end
   end
 
   context 'Declaring multiple variables' do

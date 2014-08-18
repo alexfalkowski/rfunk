@@ -2,9 +2,9 @@ module RFunk
   class Function
     attr_reader :this
 
-    def initialize(this, method_definition, &block)
+    def initialize(this, function_definition, &block)
       @this = this
-      @method_definition = method_definition
+      @function_definition = function_definition
       @block = block
       @variables = {}
     end
@@ -43,7 +43,8 @@ module RFunk
     end
 
     def execute(*args)
-      result = instance_exec(*args, &block)
+      validate_parameter_types *args
+      return_value = instance_exec(*args, &block)
 
       if body_block
         if pre_block
@@ -62,8 +63,8 @@ module RFunk
           validate_return_type(body)
         }
       else
-        validate_return_type(result)
-        Option(result)
+        validate_return_type(return_value)
+        Option(return_value)
       end
     end
 
@@ -73,17 +74,33 @@ module RFunk
 
     private
 
-    attr_reader :block, :pre_block, :post_block, :body_block, :method_definition
+    attr_reader :block, :pre_block, :post_block, :body_block, :function_definition
     attr_accessor :variables
 
     def error_checking
-      @error_checking ||= ErrorChecking.new
+      Lazy(-> { ErrorChecking.new }).value
     end
 
-    def validate_return_type(result)
-      error_checking.raise_expected_return_type method_definition.value(0).value,
-                                                result,
-                                                method_definition.value(1)
+    def validate_return_type(return_value)
+      error_checking.raise_expected_return_type(function_name.value,
+                                                return_value,
+                                                type_annotation.return)
+    end
+
+    def validate_parameter_types(*args)
+      values = args.zip(type_annotation.parameters)
+      values.each_with_index { |v, i|
+        tuple = Tuple(*v)
+        error_checking.raise_expected_parameter_type(i + 1, tuple.value(0), tuple.value(1))
+      }
+    end
+
+    def function_name
+      function_definition.value(0)
+    end
+
+    def type_annotation
+      function_definition.value(1)
     end
   end
 end

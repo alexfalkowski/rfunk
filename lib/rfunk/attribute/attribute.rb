@@ -31,7 +31,7 @@ module RFunk
     end
 
     def set_variable(attribute, key, value)
-      ErrorChecking.new.raise_expected_type(key, value, attribute.type)
+      ErrorChecking.new.raise_expected_attribute_type(key, value, attribute.type)
       self.instance_variable_set(variable_name(key), value)
     end
 
