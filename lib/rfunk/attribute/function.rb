@@ -2,8 +2,9 @@ module RFunk
   class Function
     attr_reader :this
 
-    def initialize(this, &block)
+    def initialize(this, method_definition, &block)
       @this = this
+      @method_definition = method_definition
       @block = block
       @variables = {}
     end
@@ -51,14 +52,17 @@ module RFunk
           }
         end
 
-        Option(instance_eval(&body_block)).tap {
+        Option(instance_eval(&body_block)).tap { |body|
           if post_block
-            instance_eval(&post_block).tap { |r|
-              error_checking.raise_condition_error(PostConditionError, r)
+            instance_eval(&post_block).tap { |post|
+              error_checking.raise_condition_error(PostConditionError, post)
             }
           end
+
+          validate_return_type(body)
         }
       else
+        validate_return_type(result)
         Option(result)
       end
     end
@@ -69,11 +73,17 @@ module RFunk
 
     private
 
-    attr_reader :block, :pre_block, :post_block, :body_block
+    attr_reader :block, :pre_block, :post_block, :body_block, :method_definition
     attr_accessor :variables
 
     def error_checking
       @error_checking ||= ErrorChecking.new
+    end
+
+    def validate_return_type(result)
+      error_checking.raise_expected_return_type method_definition.value(0).value,
+                                                result,
+                                                method_definition.value(1)
     end
   end
 end

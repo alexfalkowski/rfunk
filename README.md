@@ -39,6 +39,24 @@ so that they can describe what went wrong or provide some other useful info rega
     Either(-> { 1 / 0 }).or('error') == Failure(Some('error'))
     Either(nil).or('error') == Failure(Some('error'))
     Either(nil).or(nil) == Failure(None())
+    
+## Lazy
+
+Lazy initialization is the tactic of delaying the creation of an object, the calculation of a value,
+or some other expensive process until the first time it is needed.
+
+### How do we use this?
+
+    lazy = Lazy(-> { 'Lazy' })
+    lazy.value == Some('Lazy')
+    lazy.created? == true
+
+    lazy = Lazy(-> { nil })
+    lazy.value == None()
+    lazy.created? == true
+
+    lazy = Lazy(-> { 'Lazy' })
+    lazy.created? == false
 
 ## Immutability
 
@@ -121,24 +139,37 @@ metaphor with the conditions and obligations of business contracts.
         var(:return) == Some('Hello Bob!')
       }
     end
+    
+## Types
 
-## Lazy
-
-Lazy initialization is the tactic of delaying the creation of an object, the calculation of a value,
-or some other expensive process until the first time it is needed.
+RFunk has the ability to specify return types as a part of a function definition. This will all be evaluated
+during the runtime.
 
 ### How do we use this?
 
-    lazy = Lazy(-> { 'Lazy' })
-    lazy.value == Some('Lazy')
-    lazy.created? == true
+    fun :say_hello => String do |name|
+      pre {
+        assert { name == Some('Bob') }
+      }
 
-    lazy = Lazy(-> { nil })
-    lazy.value == None()
-    lazy.created? == true
+      body {
+        var return: "Hello #{name}!"
+        var(:return)
+      }
 
-    lazy = Lazy(-> { 'Lazy' })
-    lazy.created? == false
+      post {
+        var(:return) == Some('Hello Bob!')
+      }
+    end
+    
+If the return type is not a string we would get the following error:
+ 
+    Failure(TypeError, "Expected a type of 'String' for return 'say_hello'")
+    
+## Functions
+
+As you saw in the above examples, you can define your own functions using the fun keyword. This keyword has
+aliases of fn, func and defn.
     
 ## Third party libraries
 

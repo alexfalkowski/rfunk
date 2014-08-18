@@ -30,5 +30,12 @@ describe RFunk::Attribute do
       When(:result) { value.assert_argument('nope') }
       Then { result == Failure(AssertionError) }
     end
+
+    context 'Invalid return type' do
+      When(:result) { value.invalid_return_type('test') }
+      Then {
+        result == Failure(TypeError, "Expected a type of 'Integer' for return 'invalid_return_type'")
+      }
+    end
   end
 end

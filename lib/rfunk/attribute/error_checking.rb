@@ -4,14 +4,12 @@ module RFunk
       raise type, 'The condition was not met!' unless value
     end
 
+    def raise_expected_return_type(name, value, type)
+      raise_return_type_with_message name, value, type, 'return'
+    end
+
     def raise_expected_type(name, value, type)
-      case value
-      when Some
-        expected_type?(name, value.value, type)
-      when None
-      else
-        expected_type?(name, value, type)
-      end
+      raise_return_type_with_message name, value, type, 'attribute'
     end
 
     def raise_not_found(key, attributes)
@@ -29,10 +27,29 @@ module RFunk
 
     private
 
-    def expected_type?(name, value, type)
+    def raise_return_type_with_message(name, value, type, message)
+      case value
+      when Some
+        expected_type?(name, value.value, type, message)
+      when None
+      else
+        expected_type?(name, value, type, message)
+      end
+    end
+
+    def expected_type?(name, value, type, message)
+      case type
+      when Some
+        raise_type(name, value, type.value, message)
+      when None
+      else
+        raise_type(name, value, type, message)
+      end
+    end
+
+    def raise_type(name, value, type, message)
       unless value.is_a?(type)
-        message = "Expected a type of '#{type}' for attribute '#{name}'"
-        raise TypeError, message
+        raise TypeError, "Expected a type of '#{type}' for #{message} '#{name}'"
       end
     end
   end

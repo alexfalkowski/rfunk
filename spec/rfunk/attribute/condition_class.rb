@@ -47,7 +47,24 @@ class ConditionClass
     }
   end
 
-  fun :assert_argument do |arg|
+  fun :assert_argument => String do |arg|
+    var arg: arg
+
+    pre {
+      assert { var(:arg) == Some('test') }
+    }
+
+    body {
+      var return: var(:arg)
+      var(:return)
+    }
+
+    post {
+      var(:return) == Some('test')
+    }
+  end
+
+  fun :invalid_return_type => Integer do |arg|
     var arg: arg
 
     pre {

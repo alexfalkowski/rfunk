@@ -20,6 +20,11 @@ describe RFunk::Tuple do
         Then { expect(result.value(0)).to eq(None()) }
       end
 
+      context 'None' do
+        When(:result) { Tuple(None()) }
+        Then { expect(result.value(0)).to eq(None()) }
+      end
+
       context 'out of range' do
         When(:result) { Tuple('test') }
         Then { expect(result.value(1)).to eq(None()) }
