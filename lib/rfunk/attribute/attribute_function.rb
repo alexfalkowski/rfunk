@@ -2,10 +2,7 @@ module RFunk
   module AttributeFunction
     def fun(definition, &block)
       method_definition = method_definition(definition)
-
-      lambda = lambda { |*args|
-        Function.new(self, method_definition, &block).execute(*args)
-      }
+      lambda = -> (*args) { Function.new(self, method_definition, &block).execute(*args) }
 
       define_method method_definition.value(0).value, &lambda
     end
