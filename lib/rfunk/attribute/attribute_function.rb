@@ -17,7 +17,7 @@ module RFunk
         return_type = TypeAnnotation.new(definition.values.first.to_s)
         Tuple(definition.keys.first, return_type)
       else
-        Tuple(definition, None())
+        Tuple(definition)
       end
     end
   end

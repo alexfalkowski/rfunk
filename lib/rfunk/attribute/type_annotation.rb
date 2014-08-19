@@ -3,23 +3,14 @@ module RFunk
     attr_reader :parameters, :return
 
     def initialize(annotation)
-      case Option(annotation)
-      when Some
-        @annotation = annotation.split('->')
-        @parameters = if @annotation.count == 2
-                        @annotation[0].split(',').map { |p| Object.const_get(p.strip) }
-                      else
-                        []
-                      end
-        @return = if @annotation.count == 2
-                    Object.const_get(@annotation[1].strip)
-                  else
-                    Object.const_get(@annotation[0].strip)
-                  end
-      else
-        @parameters = []
-        @return = None()
-      end
+      option = Option(annotation)
+      split = option.split('->')
+      parameters = split.select { |v| v.count == 2 }
+
+      @parameters = parameters.flat_map { |v| v[0].split(',').map { |p| Object.const_get(p.strip) } }
+      @return = Option(split.map { |v|
+        v.count == 2 ? Object.const_get(v[1].strip) : Object.const_get(v[0].strip)
+      }.first).value
     end
   end
 end

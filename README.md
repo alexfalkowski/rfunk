@@ -198,7 +198,7 @@ We have added the following dependencies:
 * [concurrent-ruby](https://github.com/ruby-concurrency/concurrent-ruby)
 * [hamster](https://github.com/hamstergem/hamster)
 
-This will allow you to more functional concepts.
+This will allow you to use more functional concepts.
 
 ## Contributing to rfunk
 
