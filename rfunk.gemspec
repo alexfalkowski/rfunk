@@ -21,6 +21,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'hamster', '~> 0.4.3'
 
   s.add_development_dependency 'rake', '~> 10.4.2'
-  s.add_development_dependency 'rspec', '~> 2.14.1'
-  s.add_development_dependency 'rspec-given', '~> 3.5.4'
+  s.add_development_dependency 'rspec', '~> 3.2.0'
+  s.add_development_dependency 'rspec-given', '~> 3.7.0'
 end

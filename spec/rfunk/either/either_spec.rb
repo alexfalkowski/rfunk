@@ -26,8 +26,8 @@ describe RFunk::Either do
       end
 
       context 'success?' do
-        Then { expect(either.success?).to be_true }
-        Then { expect(either.failure?).to be_false }
+        Then { expect(either.success?).to be_truthy }
+        Then { expect(either.failure?).to be_falsey }
       end
     end
 
@@ -41,8 +41,8 @@ describe RFunk::Either do
       end
 
       context 'success?' do
-        Then { expect(either.success?).to be_true }
-        Then { expect(either.failure?).to be_false }
+        Then { expect(either.success?).to be_truthy }
+        Then { expect(either.failure?).to be_falsey }
       end
     end
 
@@ -55,8 +55,8 @@ describe RFunk::Either do
       end
 
       context 'failure?' do
-        Then { expect(either.success?).to be_false }
-        Then { expect(either.failure?).to be_true }
+        Then { expect(either.success?).to be_falsey }
+        Then { expect(either.failure?).to be_truthy }
       end
     end
 
@@ -70,8 +70,8 @@ describe RFunk::Either do
       end
 
       context 'failure?' do
-        Then { expect(either.success?).to be_false }
-        Then { expect(either.failure?).to be_true }
+        Then { expect(either.success?).to be_falsey }
+        Then { expect(either.failure?).to be_truthy }
       end
     end
   end
@@ -87,8 +87,8 @@ describe RFunk::Either do
       end
 
       context 'success?' do
-        Then { expect(either.success?).to be_true }
-        Then { expect(either.failure?).to be_false }
+        Then { expect(either.success?).to be_truthy }
+        Then { expect(either.failure?).to be_falsey }
       end
     end
 
@@ -102,8 +102,8 @@ describe RFunk::Either do
       end
 
       context 'success?' do
-        Then { expect(either.success?).to be_true }
-        Then { expect(either.failure?).to be_false }
+        Then { expect(either.success?).to be_truthy }
+        Then { expect(either.failure?).to be_falsey }
       end
     end
 
@@ -117,8 +117,8 @@ describe RFunk::Either do
       end
 
       context 'failure?' do
-        Then { expect(either.success?).to be_false }
-        Then { expect(either.failure?).to be_true }
+        Then { expect(either.success?).to be_falsey }
+        Then { expect(either.failure?).to be_truthy }
       end
     end
 
@@ -132,8 +132,8 @@ describe RFunk::Either do
       end
 
       context 'failure?' do
-        Then { expect(either.success?).to be_false }
-        Then { expect(either.failure?).to be_true }
+        Then { expect(either.success?).to be_falsey }
+        Then { expect(either.failure?).to be_truthy }
       end
     end
   end
