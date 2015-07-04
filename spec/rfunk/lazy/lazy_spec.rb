@@ -11,7 +11,7 @@ describe RFunk::Lazy do
         When(:result) { lazy.value }
         Then { expect(array).to eq(['one']) }
         Then { expect(result).to eq(Some(['one'])) }
-        Then { expect(lazy.created?).to be_true }
+        Then { expect(lazy.created?).to be_truthy }
       end
 
       context 'get a value once' do
@@ -19,7 +19,7 @@ describe RFunk::Lazy do
         When(:result) { lazy.value }
         Then { expect(array).to eq(['one']) }
         Then { expect(result).to eq(Some(['one'])) }
-        Then { expect(lazy.created?).to be_true }
+        Then { expect(lazy.created?).to be_truthy }
       end
     end
 
@@ -27,13 +27,13 @@ describe RFunk::Lazy do
       Given(:lazy) { Lazy(-> { nil }) }
       When(:result) { lazy.value }
       Then { expect(result).to eq(None()) }
-      Then { expect(lazy.created?).to be_true }
+      Then { expect(lazy.created?).to be_truthy }
     end
 
     context 'does not get a value' do
       Given(:lazy) { Lazy(-> { array << 'one' }) }
       Then { expect(array).to be_empty }
-      Then { expect(lazy.created?).to be_false }
+      Then { expect(lazy.created?).to be_falsey }
     end
   end
 end

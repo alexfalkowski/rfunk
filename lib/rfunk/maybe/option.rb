@@ -10,18 +10,18 @@ module RFunk
   end
 
   def Option(value)
-    if [Some, None].map { |t| value.is_a?(t) }.any?
+    if [RFunk::Some, RFunk::None].map { |t| value.is_a?(t) }.any?
       value
     elsif nothing?(value)
-      None.instance
+      RFunk::None.instance
     else
-      Some.new(value)
+      RFunk::Some.new(value)
     end
   end
 
   private
 
   def nothing?(value)
-    value.nil? || (value.respond_to?(:empty?) && value.empty?) || value == None.instance
+    value.nil? || (value.respond_to?(:empty?) && value.empty?) || value == RFunk::None.instance
   end
 end

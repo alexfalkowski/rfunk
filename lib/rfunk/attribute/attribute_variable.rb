@@ -7,7 +7,7 @@ module RFunk
       name = options.fetch(:name)
       attributes = attributes(instance)
 
-      attributes[name] = AttributeType.new(name, options.fetch(:type), options.fetch(:options))
+      attributes[name] = RFunk::AttributeType.new(name, options.fetch(:type), options.fetch(:options))
       attributes(instance, attributes)
     end
 

@@ -26,16 +26,16 @@ module RFunk
     def raise_immutable(options, variable)
       keys = options.keys.select { |k| variable.has_key?(k) }
       message = "Could not set variables '#{keys}', because variables are immutable."
-      raise ImmutableError, message if keys.any?
+      raise RFunk::ImmutableError, message if keys.any?
     end
 
     private
 
     def raise_return_type_with_message(name, value, type, message)
       case value
-      when Some
+      when RFunk::Some
         expected_type?(name, value.value, type, message)
-      when None
+      when RFunk::None
       else
         expected_type?(name, value, type, message)
       end
@@ -43,9 +43,9 @@ module RFunk
 
     def expected_type?(name, value, type, message)
       case type
-      when Some
+      when RFunk::Some
         raise_type(name, value, type.value, message)
-      when None
+      when RFunk::None
       else
         raise_type(name, value, type, message)
       end

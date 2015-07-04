@@ -9,11 +9,9 @@ module RFunk
       index = args[0]
 
       if args.length == 1
-        Option(values[index])
+        RFunk::Option(values[index])
       else
-        self.class.new(values.dup.tap { |v|
-          v[index] = Option(args[1])
-        })
+        self.class.new(values.dup.tap { |v| v[index] = RFunk::Option(args[1]) })
       end
     end
 
@@ -23,6 +21,6 @@ module RFunk
   end
 
   def Tuple(*values)
-    Tuple.new(values)
+    RFunk::Tuple.new(values)
   end
 end

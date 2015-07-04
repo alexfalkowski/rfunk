@@ -6,7 +6,7 @@ module RFunk
       @value = value
     end
 
-    def value(_ = None())
+    def value(_ = RFunk::None())
       @value
     end
 
@@ -15,7 +15,7 @@ module RFunk
     end
 
     def method_missing(method, *arguments, &block)
-      Option(value.send(method, *arguments, &block))
+      RFunk::Option(value.send(method, *arguments, &block))
     end
 
     def ==(other)
@@ -48,6 +48,6 @@ module RFunk
   end
 
   def Some(value)
-    Option(value)
+    RFunk::Option(value)
   end
 end
