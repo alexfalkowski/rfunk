@@ -14,6 +14,6 @@ module RFunk
   end
 
   def Success(value)
-    Success.new(value)
+    RFunk::Success.new(value)
   end
 end

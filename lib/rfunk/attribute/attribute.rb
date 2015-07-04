@@ -13,7 +13,7 @@ module RFunk
     private
 
     def attributes
-      AttributeVariable.new.attributes(self.class)
+      RFunk::AttributeVariable.new.attributes(self.class)
     end
 
     def with_defaults
@@ -25,13 +25,13 @@ module RFunk
 
     def with_attributes(options)
       options.each { |key, value|
-        ErrorChecking.new.raise_not_found(key, attributes)
+        RFunk::ErrorChecking.new.raise_not_found(key, attributes)
         set_variable(attributes[key], key, value)
       }
     end
 
     def set_variable(attribute, key, value)
-      ErrorChecking.new.raise_expected_attribute_type(key, value, attribute.type)
+      RFunk::ErrorChecking.new.raise_expected_attribute_type(key, value, attribute.type)
       self.instance_variable_set(variable_name(key), value)
     end
 

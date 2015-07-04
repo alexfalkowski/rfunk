@@ -1,13 +1,13 @@
 module RFunk
-  class None < Option
+  class None < RFunk::Option
     include Singleton
 
     def value(default = None())
-      Option(default)
+      RFunk::Option(default)
     end
 
     def or(other)
-      Option(other)
+      RFunk::Option(other)
     end
 
     def method_missing(method, *arguments, &block)
@@ -38,6 +38,6 @@ module RFunk
   end
 
   def None(value = nil)
-    Option(value)
+    RFunk::Option(value)
   end
 end

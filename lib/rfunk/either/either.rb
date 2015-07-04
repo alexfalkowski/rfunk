@@ -6,10 +6,10 @@ module RFunk
 
     def result
       case value
-      when Some, None
+      when RFunk::Some, RFunk::None
         value
       else
-        Option(value)
+        RFunk::Option(value)
       end
     end
 
