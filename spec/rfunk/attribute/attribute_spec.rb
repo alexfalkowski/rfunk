@@ -1,4 +1,3 @@
-require 'spec_helper'
 require_relative 'attribute_class'
 require_relative 'inherited_class'
 require_relative 'empty_attribute_class'
@@ -185,12 +184,12 @@ describe RFunk::Attribute do
         Given(:customer) { Customer.new }
 
         context 'Default options' do
-          Then { customer.options == Some(Hamster.hash(name: 'Simon', gender: :male)) }
+          Then { customer.options == Some(Hamster::Hash[name: 'Simon', gender: :male]) }
         end
 
         context 'replace hash value' do
           When(:result) { customer.options(customer.options.put(:name, 'James')) }
-          Then { result.options == Some(Hamster.hash(name: 'James', gender: :male)) }
+          Then { result.options == Some(Hamster::Hash[name: 'James', gender: :male]) }
         end
       end
     end

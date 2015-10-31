@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe RFunk::Tuple do
   context 'Immutable' do
     Given(:tuple) { Tuple(1, 'test') }

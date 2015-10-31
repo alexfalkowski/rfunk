@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe RFunk::Either do
   context 'Some' do
     Given(:either) { Either(Option('YES')) }

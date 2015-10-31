@@ -4,5 +4,5 @@ class Customer
   attribute :title, String, default: 'Mr'
   attribute :first_name, String
   attribute :last_name, String
-  attribute :options, Hamster::Hash, default: Hamster.hash(name: 'Simon', gender: :male)
+  attribute :options, Hamster::Hash, default: Hamster::Hash[name: 'Simon', gender: :male]
 end

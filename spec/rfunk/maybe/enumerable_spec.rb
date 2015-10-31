@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe 'Enumerable' do
   context 'Some' do
     context 'flat_map' do

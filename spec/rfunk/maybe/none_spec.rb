@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe RFunk::None do
   context 'None' do
     context 'nil is none' do

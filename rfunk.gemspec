@@ -1,4 +1,4 @@
-$:.unshift File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift File.expand_path('../lib', __FILE__)
 
 require 'rfunk/version'
 
@@ -17,11 +17,12 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   s.add_dependency 'ice_nine', '~> 0.11.0'
-  s.add_dependency 'concurrent-ruby', '~> 0.8.0'
-  s.add_dependency 'concurrent-ruby-ext', '~> 0.8.0'
-  s.add_dependency 'hamster', '~> 1.0.0'
+  s.add_dependency 'concurrent-ruby', '~> 0.9.1'
+  s.add_dependency 'concurrent-ruby-ext', '~> 0.9.1'
+  s.add_dependency 'hamster', '~> 2.0.0'
 
   s.add_development_dependency 'rake', '~> 10.4.2'
   s.add_development_dependency 'rspec', '~> 3.3.0'
-  s.add_development_dependency 'rspec-given', '~> 3.7.0'
+  s.add_development_dependency 'rspec-given', '~> 3.7.1'
+  s.add_development_dependency 'rubocop', '~> 0.34.2'
 end

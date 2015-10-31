@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe RFunk::TypeAnnotation do
   context 'Valid types' do
     context 'Single parameter' do

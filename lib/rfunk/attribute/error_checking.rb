@@ -1,7 +1,7 @@
 module RFunk
   class ErrorChecking
     def raise_condition_error(type, value)
-      raise type, 'The condition was not met!' unless value
+      fail type, 'The condition was not met!' unless value
     end
 
     def raise_expected_return_type(name, value, type)
@@ -17,16 +17,15 @@ module RFunk
     end
 
     def raise_not_found(key, attributes)
-      unless attributes.key?(key)
-        message = "Attribute with name '#{key}' does not exist. The only available attributes are '#{attributes.keys}'"
-        raise RFunk::NotFoundError, message
-      end
+      return if attributes.key?(key)
+      message = "Attribute with name '#{key}' does not exist. The only available attributes are '#{attributes.keys}'"
+      fail RFunk::NotFoundError, message
     end
 
     def raise_immutable(options, variable)
-      keys = options.keys.select { |k| variable.has_key?(k) }
+      keys = options.keys.select { |k| variable.key?(k) }
       message = "Could not set variables '#{keys}', because variables are immutable."
-      raise RFunk::ImmutableError, message if keys.any?
+      fail RFunk::ImmutableError, message if keys.any?
     end
 
     private
@@ -52,9 +51,8 @@ module RFunk
     end
 
     def raise_type(name, value, type, message)
-      unless value.is_a?(type)
-        raise TypeError, "Expected a type of '#{type}' for #{message} '#{name}'"
-      end
+      return if value.is_a?(type)
+      fail TypeError, "Expected a type of '#{type}' for #{message} '#{name}'"
     end
   end
 end
