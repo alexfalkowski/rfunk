@@ -23,5 +23,5 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'rake', '~> 10.4.2'
   s.add_development_dependency 'rspec', '~> 3.3.0'
-  s.add_development_dependency 'rspec-given', '~> 3.7.0'
+  s.add_development_dependency 'rspec-given', '~> 3.7.1'
 end
