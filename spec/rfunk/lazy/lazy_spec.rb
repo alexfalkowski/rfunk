@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe RFunk::Lazy do
   context 'Lazy' do
     let(:array) { [] }

@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe RFunk::Some do
   context 'Some' do
     context 'get a value' do

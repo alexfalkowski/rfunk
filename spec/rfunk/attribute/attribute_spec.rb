@@ -1,4 +1,3 @@
-require 'spec_helper'
 require_relative 'attribute_class'
 require_relative 'inherited_class'
 require_relative 'empty_attribute_class'

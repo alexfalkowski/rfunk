@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe 'Coerce' do
   context 'Some' do
     context 'Integer' do

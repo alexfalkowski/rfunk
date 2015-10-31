@@ -1,4 +1,3 @@
-require 'spec_helper'
 require_relative 'condition_class'
 
 describe RFunk::Attribute do

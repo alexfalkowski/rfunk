@@ -1,4 +1,3 @@
-require 'spec_helper'
 require_relative 'variable_class'
 
 describe RFunk::AttributeFunction do
