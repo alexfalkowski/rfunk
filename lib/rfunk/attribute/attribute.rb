@@ -17,22 +17,22 @@ module RFunk
     end
 
     def with_defaults
-      attributes.each { |key, attribute|
+      attributes.each do |key, attribute|
         value = attribute.options[:default]
         set_variable(attribute, key, value) if value
-      }
+      end
     end
 
     def with_attributes(options)
-      options.each { |key, value|
+      options.each do |key, value|
         RFunk::ErrorChecking.new.raise_not_found(key, attributes)
         set_variable(attributes[key], key, value)
-      }
+      end
     end
 
     def set_variable(attribute, key, value)
       RFunk::ErrorChecking.new.raise_expected_attribute_type(key, value, attribute.type)
-      self.instance_variable_set(variable_name(key), value)
+      instance_variable_set(variable_name(key), value)
     end
 
     def variable_name(name)

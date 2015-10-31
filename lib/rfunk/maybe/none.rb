@@ -10,7 +10,7 @@ module RFunk
       RFunk::Option(other)
     end
 
-    def method_missing(method, *arguments, &block)
+    def method_missing(_method, *_arguments, &_block)
       self
     end
 

@@ -33,7 +33,7 @@ module RFunk
   private
 
   def lambda?(value)
-    value.respond_to?(:lambda?) and value.lambda?
+    value.respond_to?(:lambda?) && value.lambda?
   end
 
   def either_with_lambda(lambda)

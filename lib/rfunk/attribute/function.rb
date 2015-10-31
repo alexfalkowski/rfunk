@@ -26,7 +26,7 @@ module RFunk
       if yield
         true
       else
-        raise RFunk::AssertionError
+        fail RFunk::AssertionError
       end
     end
 
@@ -43,25 +43,11 @@ module RFunk
     end
 
     def execute(*args)
-      validate_parameter_types *args
+      validate_parameter_types(*args)
       return_value = instance_exec(*args, &block)
 
       if body_block
-        if pre_block
-          instance_eval(&pre_block).tap { |r|
-            error_checking.raise_condition_error(RFunk::PreConditionError, r)
-          }
-        end
-
-        RFunk::Option(instance_eval(&body_block)).tap { |body|
-          if post_block
-            instance_eval(&post_block).tap { |post|
-              error_checking.raise_condition_error(RFunk::PostConditionError, post)
-            }
-          end
-
-          validate_return_type(body)
-        }
+        execute_body_block
       else
         validate_return_type(return_value)
         RFunk::Option(return_value)
@@ -77,6 +63,20 @@ module RFunk
     attr_reader :block, :pre_block, :post_block, :body_block, :function_definition
     attr_accessor :variables
 
+    def execute_body_block
+      execute_block pre_block, RFunk::PreConditionError
+
+      RFunk::Option(instance_eval(&body_block)).tap do |body|
+        execute_block post_block, RFunk::PostConditionError
+        validate_return_type(body)
+      end
+    end
+
+    def execute_block(block, error)
+      return unless block
+      instance_eval(&block).tap { |r| error_checking.raise_condition_error(error, r) }
+    end
+
     def error_checking
       RFunk::Lazy(-> { RFunk::ErrorChecking.new }).value
     end
@@ -89,10 +89,10 @@ module RFunk
 
     def validate_parameter_types(*args)
       values = args.zip(type_annotation.parameters)
-      values.each_with_index { |v, i|
+      values.each_with_index do |v, i|
         tuple = RFunk::Tuple(*v)
         error_checking.raise_expected_parameter_type(i + 1, tuple.value(0), tuple.value(1))
-      }
+      end
     end
 
     def function_name

@@ -6,16 +6,22 @@ module RFunk
                                        type: type,
                                        options: options)
 
-      define_method(name) { |value = nil|
+      create_method(name, type)
+    end
+
+    private
+
+    def create_method(name, type)
+      define_method(name) do |value = nil|
         if value
           RFunk::ErrorChecking.new.raise_expected_attribute_type(name, value, type)
           RFunk::Immutable.new.create(instance: self,
                                       variable_name: variable_name(name),
                                       value: value)
         else
-          RFunk::Option(self.instance_variable_get(variable_name(name)))
+          RFunk::Option(instance_variable_get(variable_name(name)))
         end
-      }
+      end
     end
   end
 end

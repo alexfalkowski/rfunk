@@ -32,11 +32,7 @@ module RFunk
       [other, value]
     end
 
-    [:to_str, :to_ary, :to_hash].each { |k|
-      define_method(k) {
-        value
-      }
-    }
+    [:to_str, :to_ary, :to_hash].each { |k| define_method(k) { value } }
 
     def_delegators :@value, :to_s, :inspect, :respond_to?, :class
 
