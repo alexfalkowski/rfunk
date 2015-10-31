@@ -17,8 +17,8 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   s.add_dependency 'ice_nine', '~> 0.11.0'
-  s.add_dependency 'concurrent-ruby', '~> 0.8.0'
-  s.add_dependency 'concurrent-ruby-ext', '~> 0.8.0'
+  s.add_dependency 'concurrent-ruby', '~> 0.9.1'
+  s.add_dependency 'concurrent-ruby-ext', '~> 0.9.1'
   s.add_dependency 'hamster', '~> 1.0.0'
 
   s.add_development_dependency 'rake', '~> 10.4.2'
