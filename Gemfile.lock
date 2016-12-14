@@ -5,7 +5,7 @@ PATH
       concurrent-ruby (~> 0.9.1)
       concurrent-ruby-ext (~> 0.9.1)
       hamster (~> 2.0.0)
-      ice_nine (~> 0.11.0)
+      ice_nine (~> 0.11.2)
 
 GEM
   remote: https://rubygems.org/
