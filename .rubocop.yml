@@ -3,6 +3,7 @@ AllCops:
   DisplayCopNames: true
   Exclude:
     - spec/**/*
+    - vendor/**/*
 
 Style/DotPosition:
   EnforcedStyle: trailing
