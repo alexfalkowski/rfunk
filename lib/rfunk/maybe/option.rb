@@ -5,7 +5,7 @@ module RFunk
     def each(&block)
       return enum_for(:enum) if block.nil?
 
-      enum.each { |v| block.call(v) }
+      enum.each { |v| yield v }
     end
   end
 

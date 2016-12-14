@@ -23,11 +23,8 @@ module RFunk
     end
 
     def assert(&_)
-      if yield
-        true
-      else
-        fail RFunk::AssertionError
-      end
+      return true if yield
+      raise RFunk::AssertionError
     end
 
     def pre(&block)
@@ -56,6 +53,10 @@ module RFunk
 
     def method_missing(method, *arguments, &block)
       this.send(method, *arguments, &block)
+    end
+
+    def respond_to_missing?(method_name, include_private = false)
+      this.respond_to_missing?(method_name, include_private)
     end
 
     private

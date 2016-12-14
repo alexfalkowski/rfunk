@@ -1,15 +1,26 @@
 AllCops:
+  TargetRubyVersion: 2.3
+  DisplayCopNames: true
   Exclude:
-    - 'spec/**/*'
-
-LineLength:
-  Max: 120
+    - spec/**/*
 
 Style/DotPosition:
   EnforcedStyle: trailing
 
-Documentation:
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
   Enabled: false
 
 Style/MethodName:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 120
+
+Lint/EmptyWhen:
+  Enabled: false
+
+Style/MethodMissing:
   Enabled: false

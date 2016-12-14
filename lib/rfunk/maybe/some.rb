@@ -18,6 +18,10 @@ module RFunk
       RFunk::Option(value.send(method, *arguments, &block))
     end
 
+    def respond_to_missing?(method_name, include_private = false)
+      value.respond_to_missing?(method_name, include_private)
+    end
+
     def ==(other)
       return false unless self.class == other.class
 

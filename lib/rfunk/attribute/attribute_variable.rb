@@ -1,6 +1,6 @@
 module RFunk
   class AttributeVariable
-    ATTRIBUTES_VARIABLE_NAME = '@attributes'
+    ATTRIBUTES_VARIABLE_NAME = '@attributes'.freeze
 
     def add(options)
       instance = options.fetch(:instance)
