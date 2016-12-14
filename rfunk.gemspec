@@ -16,13 +16,13 @@ Gem::Specification.new do |s|
   s.platform = Gem::Platform::RUBY
   s.require_paths = ['lib']
 
-  s.add_dependency 'ice_nine', '~> 0.11.0'
-  s.add_dependency 'concurrent-ruby', '~> 0.9.1'
-  s.add_dependency 'concurrent-ruby-ext', '~> 0.9.1'
-  s.add_dependency 'hamster', '~> 2.0.0'
+  s.add_dependency 'ice_nine', '~> 0.11.2'
+  s.add_dependency 'concurrent-ruby', '~> 1.0.2'
+  s.add_dependency 'concurrent-ruby-ext', '~> 1.0.2'
+  s.add_dependency 'hamster', '~> 3.0.0'
 
-  s.add_development_dependency 'rake', '~> 10.4.2'
-  s.add_development_dependency 'rspec', '~> 3.3.0'
-  s.add_development_dependency 'rspec-given', '~> 3.7.1'
-  s.add_development_dependency 'rubocop', '~> 0.34.2'
+  s.add_development_dependency 'rake'
+  s.add_development_dependency 'rspec'
+  s.add_development_dependency 'rspec-given'
+  s.add_development_dependency 'rubocop'
 end

@@ -3,7 +3,7 @@ module RFunk
     def initialize(lambda)
       @lambda = lambda
       @created = false
-      @atomic = Concurrent::Atomic.new
+      @atomic = Concurrent::AtomicReference.new
     end
 
     def value
