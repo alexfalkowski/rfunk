@@ -31,7 +31,12 @@ describe RFunk::Some do
 
     context 'already a Some' do
       When(:result) { Option(Some(1)) }
-      Then { expect(result).to eq(Some(1)) }
+      Then { result == Some(1) }
+    end
+
+    context 'pipeline' do
+      When(:result) { Option({ a: 1 }).pipe { |h| h.to_s }.pipe { |s| "#{s}, hello" } }
+      Then { result == Some('{:a=>1}, hello') }
     end
   end
 end

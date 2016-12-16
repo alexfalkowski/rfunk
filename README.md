@@ -190,12 +190,23 @@ If the parameter type is not a string we would get the following error:
 
 As you saw in the above examples, you can define your own functions using the fun keyword. This keyword has
 aliases of fn, func and defn.
+
+## Pipeline
+
+This is similar to the pipeline operator in Unix
+
+    Option({ a: 1 }).pipe { |h| h.to_s }.pipe { |s| "#{s}, hello" }
+    
+Would return
+
+    Some('{:a=>1}, hello')
     
 ## Third party libraries
 
 We have added the following dependencies:
 
 * [concurrent-ruby](https://github.com/ruby-concurrency/concurrent-ruby)
+* [ice_nine](https://github.com/dkubb/ice_nine)
 * [hamster](https://github.com/hamstergem/hamster)
 
 This will allow you to use more functional concepts.

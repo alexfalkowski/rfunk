@@ -107,7 +107,12 @@ describe RFunk::None do
 
     context 'already a None' do
       When(:result) { Option(None()) }
-      Then { expect(result).to eq(None()) }
+      Then { result == None() }
+    end
+
+    context 'pipeline' do
+      When(:result) { None().pipe { |h| h.merge({ b: 1 }) }.pipe { |h| h.merge({ c: 1 }) } }
+      Then { result == None() }
     end
   end
 end
