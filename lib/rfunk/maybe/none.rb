@@ -10,6 +10,10 @@ module RFunk
       RFunk::Option(other)
     end
 
+    def pipe(&_block)
+      self
+    end
+
     def method_missing(_method, *_arguments, &_block)
       self
     end

@@ -14,6 +14,11 @@ module RFunk
       self
     end
 
+    def pipe(&block)
+      return self if block.nil?
+      RFunk::Option(yield value)
+    end
+
     def method_missing(method, *arguments, &block)
       RFunk::Option(value.send(method, *arguments, &block))
     end
