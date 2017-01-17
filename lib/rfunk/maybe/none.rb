@@ -18,10 +18,6 @@ module RFunk
       self
     end
 
-    def respond_to_missing?(method_name, include_private = false)
-      super
-    end
-
     def coerce(other)
       [other, 0]
     end

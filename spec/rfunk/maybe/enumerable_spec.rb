@@ -11,6 +11,12 @@ describe 'Enumerable' do
       When(:result) { values.sort }
       Then { expect(result).to eq([Option(1), Option(2)]) }
     end
+
+    context 'array' do
+      Given(:values) { Option([1, 2, 3]) }
+      When(:result) { values.map { |i| i * 2 } }
+      Then { expect(result).to eq(Some([2, 4, 6])) }
+    end
   end
 
   context 'None' do
