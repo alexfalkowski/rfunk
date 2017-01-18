@@ -23,14 +23,9 @@ module RFunk
       RFunk::Option(value.send(method, *arguments, &block))
     end
 
-    def respond_to_missing?(method_name, include_private = false)
-      value.respond_to_missing?(method_name, include_private)
-    end
-
     def ==(other)
       return false unless self.class == other.class
-
-      value == other.value
+      value == Option(other).value
     end
 
     def <=>(other)
@@ -48,7 +43,13 @@ module RFunk
     protected
 
     def enum
-      [value]
+      enumerable? ? value : [value]
+    end
+
+    private
+
+    def enumerable?
+      value.is_a?(Enumerable)
     end
   end
 

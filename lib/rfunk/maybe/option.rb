@@ -22,6 +22,10 @@ module RFunk
   private
 
   def nothing?(value)
-    value.nil? || (value.respond_to?(:empty?) && value.empty?) || value == RFunk::None.instance
+    value.nil? || empty?(value) || value == RFunk::None.instance
+  end
+
+  def empty?(value)
+    value.respond_to?(:empty?) && value.empty?
   end
 end

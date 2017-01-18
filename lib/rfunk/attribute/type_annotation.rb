@@ -3,24 +3,15 @@ module RFunk
     attr_reader :parameters, :return
 
     def initialize(annotation)
-      option = RFunk::Option(annotation)
-      split = option.split('->')
-      parameters = split.select { |v| v.count == 2 }
-
-      @parameters = create_parameters(parameters)
-      @return = create_return(split)
+      split = (annotation || '').split('->').map(&:strip)
+      @parameters = create_types(split.length > 1 ? Array(split.first) : [])
+      @return = create_types(Array(split.last))
     end
 
     private
 
-    def create_parameters(parameters)
-      parameters.flat_map { |v| v[0].split(',').map { |p| Object.const_get(p.strip) } }
-    end
-
-    def create_return(split)
-      RFunk::Option(split.map do |v|
-                      v.count == 2 ? Object.const_get(v[1].strip) : Object.const_get(v[0].strip)
-                    end.first).value
+    def create_types(parameters)
+      parameters.flat_map { |v| v.split(',') }.map(&:strip).map { |p| Object.const_get(p) }
     end
   end
 end

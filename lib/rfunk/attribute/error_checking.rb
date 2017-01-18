@@ -4,16 +4,16 @@ module RFunk
       raise type, 'The condition was not met!' unless value
     end
 
-    def raise_expected_return_type(name, value, type)
-      raise_return_type_with_message name, value, type, 'return'
+    def raise_expected_return_type(name, value, types)
+      raise_return_type_with_message name, value, types, 'return'
     end
 
-    def raise_expected_attribute_type(name, value, type)
-      raise_return_type_with_message name, value, type, 'attribute'
+    def raise_expected_attribute_type(name, value, types)
+      raise_return_type_with_message name, value, types, 'attribute'
     end
 
-    def raise_expected_parameter_type(name, value, type)
-      raise_return_type_with_message name, value, type, 'parameter'
+    def raise_expected_parameter_type(name, value, types)
+      raise_return_type_with_message name, value, types, 'parameter'
     end
 
     def raise_not_found(key, attributes)
@@ -30,13 +30,15 @@ module RFunk
 
     private
 
-    def raise_return_type_with_message(name, value, type, message)
-      case value
-      when RFunk::Some
-        expected_type?(name, value.value, type, message)
-      when RFunk::None
-      else
-        expected_type?(name, value, type, message)
+    def raise_return_type_with_message(name, value, types, message)
+      Array(types).each do |type|
+        case value
+        when RFunk::Some
+          expected_type?(name, value.value, type, message)
+        when RFunk::None
+        else
+          expected_type?(name, value, type, message)
+        end
       end
     end
 
