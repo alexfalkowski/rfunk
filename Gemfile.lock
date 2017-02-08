@@ -12,8 +12,8 @@ GEM
   specs:
     ast (2.3.0)
     concurrent-ruby (1.0.4)
-    concurrent-ruby-ext (1.0.2)
-      concurrent-ruby (~> 1.0.2)
+    concurrent-ruby-ext (1.0.4)
+      concurrent-ruby (= 1.0.4)
     diff-lcs (1.2.5)
     given_core (3.8.0)
       sorcerer (>= 0.3.7)
