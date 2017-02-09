@@ -21,7 +21,9 @@ module RFunk
     attr_accessor :created
   end
 
-  def Lazy(lambda)
-    RFunk::Lazy.new(lambda)
+  class << self
+    def lazy(lambda)
+      RFunk::Lazy.new(lambda)
+    end
   end
 end

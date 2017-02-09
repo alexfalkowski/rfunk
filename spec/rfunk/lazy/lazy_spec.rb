@@ -3,7 +3,7 @@ describe RFunk::Lazy do
     let(:array) { [] }
 
     context 'Some' do
-      Given(:lazy) { Lazy(-> { array << 'one' }) }
+      Given(:lazy) { RFunk.lazy(-> { array << 'one' }) }
 
       context 'get a value' do
         When(:result) { lazy.value }
@@ -22,14 +22,14 @@ describe RFunk::Lazy do
     end
 
     context 'None' do
-      Given(:lazy) { Lazy(-> { nil }) }
+      Given(:lazy) { RFunk.lazy(-> { nil }) }
       When(:result) { lazy.value }
       Then { expect(result).to eq(None()) }
       Then { expect(lazy.created?).to be_truthy }
     end
 
     context 'does not get a value' do
-      Given(:lazy) { Lazy(-> { array << 'one' }) }
+      Given(:lazy) { RFunk.lazy(-> { array << 'one' }) }
       Then { expect(array).to be_empty }
       Then { expect(lazy.created?).to be_falsey }
     end
