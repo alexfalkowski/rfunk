@@ -15,9 +15,9 @@ module RFunk
       case definition
       when Hash
         return_type = RFunk::TypeAnnotation.new(definition.values.first.to_s)
-        RFunk::Tuple(definition.keys.first, return_type)
+        RFunk.tuple(definition.keys.first, return_type)
       else
-        RFunk::Tuple(definition)
+        RFunk.tuple(definition)
       end
     end
   end

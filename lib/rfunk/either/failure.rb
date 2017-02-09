@@ -9,11 +9,13 @@ module RFunk
     end
 
     def or(value)
-      RFunk::Failure(value)
+      RFunk.failure(value)
     end
   end
 
-  def Failure(value)
-    RFunk::Failure.new(value)
+  class << self
+    def failure(value)
+      RFunk::Failure.new(value)
+    end
   end
 end

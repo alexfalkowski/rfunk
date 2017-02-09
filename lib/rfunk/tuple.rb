@@ -9,9 +9,9 @@ module RFunk
       index = args[0]
 
       if args.length == 1
-        RFunk::Option(values[index])
+        RFunk.option(values[index])
       else
-        self.class.new(values.dup.tap { |v| v[index] = RFunk::Option(args[1]) })
+        self.class.new(values.dup.tap { |v| v[index] = RFunk.option(args[1]) })
       end
     end
 
@@ -20,7 +20,9 @@ module RFunk
     attr_reader :values
   end
 
-  def Tuple(*values)
-    RFunk::Tuple.new(values)
+  class << self
+    def tuple(*values)
+      RFunk::Tuple.new(values)
+    end
   end
 end

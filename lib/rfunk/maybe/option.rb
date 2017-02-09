@@ -9,23 +9,25 @@ module RFunk
     end
   end
 
-  def Option(value)
-    if [RFunk::Some, RFunk::None].map { |t| value.is_a?(t) }.any?
-      value
-    elsif nothing?(value)
-      RFunk::None.instance
-    else
-      RFunk::Some.new(value)
+  class << self
+    def option(value)
+      if [RFunk::Some, RFunk::None].map { |t| value.is_a?(t) }.any?
+        value
+      elsif nothing?(value)
+        RFunk::None.instance
+      else
+        RFunk::Some.new(value)
+      end
     end
-  end
 
-  private
+    private
 
-  def nothing?(value)
-    value.nil? || empty?(value) || value == RFunk::None.instance
-  end
+    def nothing?(value)
+      value.nil? || empty?(value) || value == RFunk::None.instance
+    end
 
-  def empty?(value)
-    value.respond_to?(:empty?) && value.empty?
+    def empty?(value)
+      value.respond_to?(:empty?) && value.empty?
+    end
   end
 end

@@ -13,7 +13,9 @@ module RFunk
     end
   end
 
-  def Success(value)
-    RFunk::Success.new(value)
+  class << self
+    def success(value)
+      RFunk::Success.new(value)
+    end
   end
 end

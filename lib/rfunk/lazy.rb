@@ -8,7 +8,7 @@ module RFunk
 
     def value
       atomic.update { @value ||= lambda.call.tap { self.created = true } }
-      RFunk::Option(atomic.value)
+      RFunk.option(atomic.value)
     end
 
     def created?
@@ -21,7 +21,9 @@ module RFunk
     attr_accessor :created
   end
 
-  def Lazy(lambda)
-    RFunk::Lazy.new(lambda)
+  class << self
+    def lazy(lambda)
+      RFunk::Lazy.new(lambda)
+    end
   end
 end

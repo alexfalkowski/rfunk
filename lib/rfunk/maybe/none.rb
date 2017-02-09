@@ -3,11 +3,11 @@ module RFunk
     include Singleton
 
     def value(default = None())
-      RFunk::Option(default)
+      RFunk.option(default)
     end
 
     def or(other)
-      RFunk::Option(other)
+      RFunk.option(other)
     end
 
     def pipe(&_block)
@@ -41,7 +41,9 @@ module RFunk
     end
   end
 
-  def None(value = nil)
-    RFunk::Option(value)
+  class << self
+    def none(value = nil)
+      RFunk.option(value)
+    end
   end
 end

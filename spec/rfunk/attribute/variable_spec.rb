@@ -5,13 +5,13 @@ describe RFunk::AttributeFunction do
     context 'Call once' do
       Given(:variable) { VariableClass.new }
       When(:result) { variable.declare_valid }
-      Then { expect(result).to eq(Some('Hello')) }
+      Then { expect(result).to eq(RFunk.some('Hello')) }
     end
 
     context 'Call twice' do
       Given(:variable) { VariableClass.new }
       When(:result) { variable.declare_valid; variable.declare_valid }
-      Then { expect(result).to eq(Some('Hello')) }
+      Then { expect(result).to eq(RFunk.some('Hello')) }
     end
 
     context 'Invalid return type' do
@@ -26,15 +26,15 @@ describe RFunk::AttributeFunction do
   context 'set attributes of class' do
     Given(:variable) { VariableClass.new }
     When(:result) { variable.full_name('Alex', 'Falkowski') }
-    Then { expect(result.first_name).to eq(Some('Alex')) }
-    Then { expect(result.last_name).to eq(Some('Falkowski')) }
+    Then { expect(result.first_name).to eq(RFunk.some('Alex')) }
+    Then { expect(result.last_name).to eq(RFunk.some('Falkowski')) }
   end
 
   context 'With parameters' do
     context 'Valid' do
       Given(:variable) { VariableClass.new }
       When(:result) { variable.parameter('Parameters') }
-      Then { expect(result).to eq(Some('Parameters')) }
+      Then { expect(result).to eq(RFunk.some('Parameters')) }
     end
 
     context 'Invalid' do
@@ -47,20 +47,20 @@ describe RFunk::AttributeFunction do
   context 'Declaring multiple variables' do
     Given(:variable) { VariableClass.new }
     When(:result) { variable.declare_multiple }
-    Then { expect(result).to eq(Some('Multiple')) }
+    Then { expect(result).to eq(RFunk.some('Multiple')) }
   end
 
   context 'Undefined variable' do
     Given(:variable) { VariableClass.new }
     When(:result) { variable.undefined }
-    Then { expect(result).to eq(None()) }
+    Then { expect(result).to eq(RFunk.none) }
   end
 
   context 'Override an existing variable' do
     Given(:variable) { VariableClass.new }
     When(:result) { variable.override_existing }
     Then {
-      result == Failure(ImmutableError, "Could not set variables '[:hello]', because variables are immutable.")
+      result == Failure(RFunk::ImmutableError, "Could not set variables '[:hello]', because variables are immutable.")
     }
   end
 

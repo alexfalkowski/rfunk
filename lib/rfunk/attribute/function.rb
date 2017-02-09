@@ -18,7 +18,7 @@ module RFunk
           self.variables = variables.merge(options)
         end
       else
-        RFunk::Some(RFunk::Some(variables)[options])
+        RFunk.some(RFunk.some(variables)[options])
       end
     end
 
@@ -47,7 +47,7 @@ module RFunk
         execute_body_block
       else
         validate_return_type(return_value)
-        RFunk::Option(return_value)
+        RFunk.option(return_value)
       end
     end
 
@@ -67,7 +67,7 @@ module RFunk
     def execute_body_block
       execute_block pre_block, RFunk::PreConditionError
 
-      RFunk::Option(instance_eval(&body_block)).tap do |body|
+      RFunk.option(instance_eval(&body_block)).tap do |body|
         execute_block post_block, RFunk::PostConditionError
         validate_return_type(body)
       end
@@ -79,7 +79,7 @@ module RFunk
     end
 
     def error_checking
-      RFunk::Lazy(-> { RFunk::ErrorChecking.new }).value
+      RFunk.lazy(-> { RFunk::ErrorChecking.new }).value
     end
 
     def validate_return_type(return_value)
@@ -91,7 +91,7 @@ module RFunk
     def validate_parameter_types(*args)
       values = args.zip(type_annotation.parameters)
       values.each_with_index do |v, i|
-        tuple = RFunk::Tuple(*v)
+        tuple = RFunk.tuple(*v)
         error_checking.raise_expected_parameter_type(i + 1, tuple.value(0), tuple.value(1))
       end
     end
