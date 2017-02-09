@@ -22,11 +22,13 @@ module RFunk
     attr_reader :value
   end
 
-  def Either(value)
-    if lambda?(value)
-      either_with_lambda(value)
-    else
-      either_with_value(value)
+  class << self
+    def either(value)
+      if lambda?(value)
+        either_with_lambda(value)
+      else
+        either_with_value(value)
+      end
     end
   end
 
@@ -37,16 +39,16 @@ module RFunk
   end
 
   def either_with_lambda(lambda)
-    RFunk::Success(lambda.call)
+    RFunk.success(lambda.call)
   rescue => e
-    RFunk::Failure(e)
+    RFunk.failure(e)
   end
 
   def either_with_value(value)
     if value
-      RFunk::Success(value)
+      RFunk.success(value)
     else
-      RFunk::Failure(value)
+      RFunk.failure(value)
     end
   end
 end

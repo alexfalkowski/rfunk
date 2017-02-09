@@ -1,21 +1,21 @@
 describe RFunk::Either do
   context 'Some' do
-    Given(:either) { Either(Option('YES')) }
+    Given(:either) { RFunk.either(Option('YES')) }
     When(:result) { either.result }
-    Then { expect(either).to eq(Success(Some('YES'))) }
+    Then { expect(either).to eq(RFunk.success(Some('YES'))) }
     Then { expect(result).to eq(Some('YES')) }
     Then { expect(result.value).to eq('YES') }
   end
 
   context 'None' do
-    Given(:either) { Either(Option(nil)) }
+    Given(:either) { RFunk.either(Option(nil)) }
     When(:result) { either.result }
-    Then { expect(either).to eq(RFunk::Failure(None())) }
+    Then { expect(either).to eq(RFunk.failure(None())) }
   end
 
   context 'Lambda' do
     context 'Success' do
-      Given(:either) { Either(-> { 'YES' }) }
+      Given(:either) { RFunk.either(-> { 'YES' }) }
 
       context 'gets value' do
         When(:result) { either.result }
@@ -30,7 +30,7 @@ describe RFunk::Either do
     end
 
     context 'Success with or' do
-      Given(:either) { Either(-> { 'success' }).or('failure') }
+      Given(:either) { RFunk.either(-> { 'success' }).or('failure') }
 
       context 'gets value' do
         When(:result) { either.result }
@@ -45,7 +45,7 @@ describe RFunk::Either do
     end
 
     context 'Failure' do
-      Given(:either) { Either(-> { 1 / 0 }) }
+      Given(:either) { RFunk.either(-> { 1 / 0 }) }
 
       context 'gets value' do
         When(:result) { either.result }
@@ -59,7 +59,7 @@ describe RFunk::Either do
     end
 
     context 'Failure with or' do
-      Given(:either) { Either(-> { 1 / 0 }).or('error') }
+      Given(:either) { RFunk.either(-> { 1 / 0 }).or('error') }
 
       context 'gets value' do
         When(:result) { either.result }
@@ -76,7 +76,7 @@ describe RFunk::Either do
 
   context 'Values' do
     context 'Success' do
-      Given(:either) { Either(true) }
+      Given(:either) { RFunk.either(true) }
 
       context 'gets value' do
         When(:result) { either.result }
@@ -91,7 +91,7 @@ describe RFunk::Either do
     end
 
     context 'Success with or' do
-      Given(:either) { Either(true).or('failure') }
+      Given(:either) { RFunk.either(true).or('failure') }
 
       context 'gets value' do
         When(:result) { either.result }
@@ -106,7 +106,7 @@ describe RFunk::Either do
     end
 
     context 'Failure' do
-      Given(:either) { Either(false) }
+      Given(:either) { RFunk.either(false) }
 
       context 'gets value' do
         When(:result) { either.result }
@@ -121,7 +121,7 @@ describe RFunk::Either do
     end
 
     context 'Failure with or' do
-      Given(:either) { Either(false).or('error') }
+      Given(:either) { RFunk.either(false).or('error') }
 
       context 'gets value' do
         When(:result) { either.result }
@@ -135,5 +135,4 @@ describe RFunk::Either do
       end
     end
   end
-
 end
