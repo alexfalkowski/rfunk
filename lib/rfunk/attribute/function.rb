@@ -18,7 +18,7 @@ module RFunk
           self.variables = variables.merge(options)
         end
       else
-        RFunk::Some(RFunk::Some(variables)[options])
+        RFunk.some(RFunk.some(variables)[options])
       end
     end
 
@@ -47,7 +47,7 @@ module RFunk
         execute_body_block
       else
         validate_return_type(return_value)
-        RFunk::Option(return_value)
+        RFunk.option(return_value)
       end
     end
 
@@ -67,7 +67,7 @@ module RFunk
     def execute_body_block
       execute_block pre_block, RFunk::PreConditionError
 
-      RFunk::Option(instance_eval(&body_block)).tap do |body|
+      RFunk.option(instance_eval(&body_block)).tap do |body|
         execute_block post_block, RFunk::PostConditionError
         validate_return_type(body)
       end

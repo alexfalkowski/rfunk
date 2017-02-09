@@ -9,7 +9,7 @@ module RFunk
       when RFunk::Some, RFunk::None
         value
       else
-        RFunk::Option(value)
+        RFunk.option(value)
       end
     end
 
@@ -30,25 +30,25 @@ module RFunk
         either_with_value(value)
       end
     end
-  end
 
-  private
+    private
 
-  def lambda?(value)
-    value.respond_to?(:lambda?) && value.lambda?
-  end
+    def lambda?(value)
+      value.respond_to?(:lambda?) && value.lambda?
+    end
 
-  def either_with_lambda(lambda)
-    RFunk.success(lambda.call)
-  rescue => e
-    RFunk.failure(e)
-  end
+    def either_with_lambda(lambda)
+      RFunk.success(lambda.call)
+    rescue => e
+      RFunk.failure(e)
+    end
 
-  def either_with_value(value)
-    if value
-      RFunk.success(value)
-    else
-      RFunk.failure(value)
+    def either_with_value(value)
+      if value
+        RFunk.success(value)
+      else
+        RFunk.failure(value)
+      end
     end
   end
 end

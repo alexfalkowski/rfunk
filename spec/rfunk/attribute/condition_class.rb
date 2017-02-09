@@ -8,7 +8,7 @@ class ConditionClass
     var arg: arg
 
     pre {
-      var(:arg) == Some('test')
+      var(:arg) == RFunk.some('test')
     }
 
     body {
@@ -17,7 +17,7 @@ class ConditionClass
     }
 
     post {
-      var(:return) == Some('test')
+      var(:return) == RFunk.some('test')
     }
   end
 
@@ -25,7 +25,7 @@ class ConditionClass
     var arg: arg
 
     pre {
-      var(:arg) == Some('test')
+      var(:arg) == RFunk.some('test')
     }
 
     body {
@@ -34,7 +34,7 @@ class ConditionClass
     }
 
     post {
-      var(:return) == Some('not')
+      var(:return) == RFunk.some('not')
     }
   end
 
@@ -51,7 +51,7 @@ class ConditionClass
     var arg: arg
 
     pre {
-      assert { var(:arg) == Some('test') }
+      assert { var(:arg) == RFunk.some('test') }
     }
 
     body {
@@ -60,7 +60,7 @@ class ConditionClass
     }
 
     post {
-      var(:return) == Some('test')
+      var(:return) == RFunk.some('test')
     }
   end
 
@@ -68,7 +68,7 @@ class ConditionClass
     var arg: arg
 
     pre {
-      assert { var(:arg) == Some('test') }
+      assert { var(:arg) == RFunk.some('test') }
     }
 
     body {
@@ -77,7 +77,7 @@ class ConditionClass
     }
 
     post {
-      var(:return) == Some('test')
+      var(:return) == RFunk.some('test')
     }
   end
 end

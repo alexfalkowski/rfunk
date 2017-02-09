@@ -1,16 +1,16 @@
 describe RFunk::Either do
   context 'Some' do
-    Given(:either) { RFunk.either(Option('YES')) }
+    Given(:either) { RFunk.either(RFunk.option('YES')) }
     When(:result) { either.result }
-    Then { expect(either).to eq(RFunk.success(Some('YES'))) }
-    Then { expect(result).to eq(Some('YES')) }
+    Then { expect(either).to eq(RFunk.success(RFunk.some('YES'))) }
+    Then { expect(result).to eq(RFunk.some('YES')) }
     Then { expect(result.value).to eq('YES') }
   end
 
   context 'None' do
-    Given(:either) { RFunk.either(Option(nil)) }
+    Given(:either) { RFunk.either(RFunk.option(nil)) }
     When(:result) { either.result }
-    Then { expect(either).to eq(RFunk.failure(None())) }
+    Then { expect(either).to eq(RFunk.failure(RFunk.none)) }
   end
 
   context 'Lambda' do
@@ -19,7 +19,7 @@ describe RFunk::Either do
 
       context 'gets value' do
         When(:result) { either.result }
-        Then { expect(result).to eq(Some('YES')) }
+        Then { expect(result).to eq(RFunk.some('YES')) }
         Then { expect(result.value).to eq('YES') }
       end
 
@@ -34,7 +34,7 @@ describe RFunk::Either do
 
       context 'gets value' do
         When(:result) { either.result }
-        Then { expect(result).to eq(Some('success')) }
+        Then { expect(result).to eq(RFunk.some('success')) }
         Then { expect(result.value).to eq('success') }
       end
 
@@ -63,7 +63,7 @@ describe RFunk::Either do
 
       context 'gets value' do
         When(:result) { either.result }
-        Then { expect(result).to eq(Some('error')) }
+        Then { expect(result).to eq(RFunk.some('error')) }
         Then { expect(result.value).to eq('error') }
       end
 
@@ -80,7 +80,7 @@ describe RFunk::Either do
 
       context 'gets value' do
         When(:result) { either.result }
-        Then { expect(result).to eq(Some(true)) }
+        Then { expect(result).to eq(RFunk.some(true)) }
         Then { expect(result.value).to eq(true) }
       end
 
@@ -95,7 +95,7 @@ describe RFunk::Either do
 
       context 'gets value' do
         When(:result) { either.result }
-        Then { expect(result).to eq(Some(true)) }
+        Then { expect(result).to eq(RFunk.some(true)) }
         Then { expect(result.value).to eq(true) }
       end
 
@@ -110,7 +110,7 @@ describe RFunk::Either do
 
       context 'gets value' do
         When(:result) { either.result }
-        Then { expect(result).to eq(Some(false)) }
+        Then { expect(result).to eq(RFunk.some(false)) }
         Then { expect(result.value).to eq(false) }
       end
 
@@ -125,7 +125,7 @@ describe RFunk::Either do
 
       context 'gets value' do
         When(:result) { either.result }
-        Then { expect(result).to eq(Some('error')) }
+        Then { expect(result).to eq(RFunk.some('error')) }
         Then { expect(result.value).to eq('error') }
       end
 

@@ -6,21 +6,21 @@ require_relative 'customer'
 describe RFunk::Attribute do
   context 'EmptyAttributeClass' do
     When(:value) { EmptyAttributeClass.new }
-    Then { value != Failure }
+    Then { value != RFunk::Failure }
   end
 
   context 'AttributeClass' do
     context 'has a get attribute that defaults to Nothing' do
       Given(:node) { AttributeClass.new }
       When(:result) { node.name }
-      Then { result == None() }
+      Then { result == RFunk.none }
     end
 
     context 'sets an attribute' do
       Given(:node) { AttributeClass.new }
       When(:result) { node.name('test') }
       Then { not result.equal? node }
-      Then { result.name == Some('test') }
+      Then { result.name == RFunk.some('test') }
     end
 
     context 'String' do
@@ -74,14 +74,14 @@ describe RFunk::Attribute do
       context 'has a get attribute that defaults to Nothing' do
         Given(:node) { InheritedClass.new }
         When(:result) { node.name }
-        Then { result == None() }
+        Then { result == RFunk.none }
       end
 
       context 'sets an attribute' do
         Given(:node) { InheritedClass.new }
         When(:result) { node.name('test') }
         Then { not result.equal? node }
-        Then { result.name == Some('test') }
+        Then { result.name == RFunk.some('test') }
       end
 
       context 'String' do
@@ -138,32 +138,32 @@ describe RFunk::Attribute do
 
         context 'sets multiple attributes with default' do
           When(:result) { node.first_name('test').last_name('test') }
-          Then { result.first_name == Some('test') }
-          Then { result.last_name == Some('test') }
-          Then { result.title == Some('Mr') }
+          Then { result.first_name == RFunk.some('test') }
+          Then { result.last_name == RFunk.some('test') }
+          Then { result.title == RFunk.some('Mr') }
         end
 
         context 'sets multiple attributes' do
           When(:result) { node.first_name('test').last_name('test').title('test') }
-          Then { result.first_name == Some('test') }
-          Then { result.last_name == Some('test') }
-          Then { result.title == Some('test') }
+          Then { result.first_name == RFunk.some('test') }
+          Then { result.last_name == RFunk.some('test') }
+          Then { result.title == RFunk.some('test') }
         end
       end
 
       context 'Constructor' do
         context 'allows creation with default' do
           When(:result) { Customer.new(first_name: 'test', last_name: 'test') }
-          Then { result.first_name == Some('test') }
-          Then { result.last_name == Some('test') }
-          Then { result.title == Some('Mr') }
+          Then { result.first_name == RFunk.some('test') }
+          Then { result.last_name == RFunk.some('test') }
+          Then { result.title == RFunk.some('Mr') }
         end
 
         context 'allows creation' do
           When(:result) { Customer.new(first_name: 'test', last_name: 'test', title: 'test') }
-          Then { result.first_name == Some('test') }
-          Then { result.last_name == Some('test') }
-          Then { result.title == Some('test') }
+          Then { result.first_name == RFunk.some('test') }
+          Then { result.last_name == RFunk.some('test') }
+          Then { result.title == RFunk.some('test') }
         end
       end
 
@@ -184,12 +184,12 @@ describe RFunk::Attribute do
         Given(:customer) { Customer.new }
 
         context 'Default options' do
-          Then { customer.options == Some(Hamster::Hash[name: 'Simon', gender: :male]) }
+          Then { customer.options == RFunk.some(Hamster::Hash[name: 'Simon', gender: :male]) }
         end
 
         context 'replace hash value' do
           When(:result) { customer.options(customer.options.put(:name, 'James')) }
-          Then { result.options == Some(Hamster::Hash[name: 'James', gender: :male]) }
+          Then { result.options == RFunk.some(Hamster::Hash[name: 'James', gender: :male]) }
         end
       end
     end

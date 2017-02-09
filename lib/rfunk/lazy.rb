@@ -8,7 +8,7 @@ module RFunk
 
     def value
       atomic.update { @value ||= lambda.call.tap { self.created = true } }
-      RFunk::Option(atomic.value)
+      RFunk.option(atomic.value)
     end
 
     def created?

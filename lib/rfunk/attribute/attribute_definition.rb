@@ -19,7 +19,7 @@ module RFunk
                                       variable_name: variable_name(name),
                                       value: value)
         else
-          RFunk::Option(instance_variable_get(variable_name(name)))
+          RFunk.option(instance_variable_get(variable_name(name)))
         end
       end
     end

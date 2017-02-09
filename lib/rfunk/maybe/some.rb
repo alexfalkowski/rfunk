@@ -6,7 +6,7 @@ module RFunk
       @value = value
     end
 
-    def value(_ = RFunk::None())
+    def value(_ = RFunk.none)
       @value
     end
 
@@ -16,16 +16,16 @@ module RFunk
 
     def pipe(&block)
       return self if block.nil?
-      RFunk::Option(yield value)
+      RFunk.option(yield value)
     end
 
     def method_missing(method, *arguments, &block)
-      RFunk::Option(value.send(method, *arguments, &block))
+      RFunk.option(value.send(method, *arguments, &block))
     end
 
     def ==(other)
       return false unless self.class == other.class
-      value == Option(other).value
+      value == RFunk.option(other).value
     end
 
     def <=>(other)
@@ -53,7 +53,9 @@ module RFunk
     end
   end
 
-  def Some(value)
-    RFunk::Option(value)
+  class << self
+    def some(value)
+      RFunk.option(value)
+    end
   end
 end
