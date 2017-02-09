@@ -91,7 +91,7 @@ module RFunk
     def validate_parameter_types(*args)
       values = args.zip(type_annotation.parameters)
       values.each_with_index do |v, i|
-        tuple = RFunk::Tuple(*v)
+        tuple = RFunk.tuple(*v)
         error_checking.raise_expected_parameter_type(i + 1, tuple.value(0), tuple.value(1))
       end
     end

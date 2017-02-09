@@ -20,7 +20,9 @@ module RFunk
     attr_reader :values
   end
 
-  def Tuple(*values)
-    RFunk::Tuple.new(values)
+  class << self
+    def tuple(*values)
+      RFunk::Tuple.new(values)
+    end
   end
 end
