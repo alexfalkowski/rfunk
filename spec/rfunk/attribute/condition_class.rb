@@ -5,79 +5,79 @@ class ConditionClass
   attribute :last_name, String
 
   fun :valid do |arg|
-    var arg: arg
+    val arg: arg
 
     pre {
-      var(:arg) == RFunk.some('test')
+      val(:arg) == RFunk.some('test')
     }
 
     body {
-      var return: var(:arg)
-      var(:return)
+      val return: val(:arg)
+      val(:return)
     }
 
     post {
-      var(:return) == RFunk.some('test')
+      val(:return) == RFunk.some('test')
     }
   end
 
   fun :invalid do |arg|
-    var arg: arg
+    val arg: arg
 
     pre {
-      var(:arg) == RFunk.some('test')
+      val(:arg) == RFunk.some('test')
     }
 
     body {
-      var return: var(:arg)
-      var(:return)
+      val return: val(:arg)
+      val(:return)
     }
 
     post {
-      var(:return) == RFunk.some('not')
+      val(:return) == RFunk.some('not')
     }
   end
 
   fun :full_name do |first_name, last_name|
-    var first_name: first_name
-    var last_name: last_name
+    val first_name: first_name
+    val last_name: last_name
 
     body {
-      first_name(var(:first_name)).last_name(var(:last_name))
+      first_name(val(:first_name)).last_name(val(:last_name))
     }
   end
 
   fun :assert_argument => String do |arg|
-    var arg: arg
+    val arg: arg
 
     pre {
-      assert { var(:arg) == RFunk.some('test') }
+      assert { val(:arg) == RFunk.some('test') }
     }
 
     body {
-      var return: var(:arg)
-      var(:return)
+      val return: val(:arg)
+      val(:return)
     }
 
     post {
-      var(:return) == RFunk.some('test')
+      val(:return) == RFunk.some('test')
     }
   end
 
   fun :invalid_return_type => Integer do |arg|
-    var arg: arg
+    val arg: arg
 
     pre {
-      assert { var(:arg) == RFunk.some('test') }
+      assert { val(:arg) == RFunk.some('test') }
     }
 
     body {
-      var return: var(:arg)
-      var(:return)
+      val return: val(:arg)
+      val(:return)
     }
 
     post {
-      var(:return) == RFunk.some('test')
+      val(:return) == RFunk.some('test')
     }
   end
 end

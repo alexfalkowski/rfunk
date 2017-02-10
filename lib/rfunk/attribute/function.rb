@@ -9,7 +9,7 @@ module RFunk
       @variables = {}
     end
 
-    def var(options)
+    def val(options)
       if options.is_a?(Hash)
         if variables.empty?
           self.variables = options

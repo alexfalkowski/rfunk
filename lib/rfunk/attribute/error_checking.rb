@@ -24,7 +24,7 @@ module RFunk
 
     def raise_immutable(options, variable)
       keys = options.keys.select { |k| variable.key?(k) }
-      message = "Could not set variables '#{keys}', because variables are immutable."
+      message = "Could not rebind a value '#{keys}', because they are immutable."
       raise RFunk::ImmutableError, message if keys.any?
     end
 
