@@ -10,7 +10,7 @@ module RFunk
       @value
     end
 
-    alias_method :identity, :value
+    alias identity value
 
     def or(_)
       self

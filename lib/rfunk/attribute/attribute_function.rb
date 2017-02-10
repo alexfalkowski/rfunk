@@ -7,7 +7,9 @@ module RFunk
       define_method function_definition.value(0).value, &lambda
     end
 
-    [:fn, :func, :defn].each { |m| alias_method m, :fun }
+    alias fn fun
+    alias func fun
+    alias defn fun
 
     private
 

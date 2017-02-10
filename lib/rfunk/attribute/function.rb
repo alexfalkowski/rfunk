@@ -22,7 +22,7 @@ module RFunk
       RFunk.some(RFunk.some(variables)[options])
     end
 
-    [:let].each { |m| alias_method m, :val }
+    alias let val
 
     def assert(&_)
       return true if yield
