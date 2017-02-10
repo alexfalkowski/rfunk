@@ -16,7 +16,7 @@ class ValueClass
   end
 
   defn :parameter => 'String -> String' do |m|
-    val hello: m.to_s
+    let hello: m.to_s
     val(:hello)
   end
 

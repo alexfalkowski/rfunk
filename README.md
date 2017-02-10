@@ -92,6 +92,8 @@ In the Hickeysian universe, a State is a specific value for an identity at a poi
 
 ### Immutable values
 
+This keyword has an aliase of let.
+
     class Customer
       include RFunk::Attribute
 

@@ -22,6 +22,8 @@ module RFunk
       end
     end
 
+    [:let].each { |m| alias_method m, :val }
+
     def assert(&_)
       return true if yield
       raise RFunk::AssertionError
