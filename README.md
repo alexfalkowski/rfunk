@@ -69,7 +69,7 @@ And it has to be "right now", because there's no language-supported way of holdi
 This becomes clearer if you contrast it with the notion of identity in FP.
 In the Hickeysian universe, a State is a specific value for an identity at a point in time.
 
-### Immutable classes
+### Immutable Classes
 
     class Customer
       include RFunk::Attribute
@@ -90,7 +90,7 @@ In the Hickeysian universe, a State is a specific value for an identity at a poi
     customer.first_name == RFunk.some('test')
     customer.last_name == RFunk.some('test')
 
-### Immutable values
+### Immutable Values
 
 This keyword has an aliase of let.
 
@@ -187,6 +187,22 @@ If the return type is not a string we would get the following error:
 If the parameter type is not a string we would get the following error:
  
     RFunk.failure(TypeError, "Expected a type of 'String' for parameter '1'")
+
+### Pattern Matching
+
+You can also do some pattern Matching
+
+    fun :something do
+      match(RFunk.some('YES')) do |p|
+        p.with :some, ->(v) { "#{v} IT WORKED" }
+      end
+    end
+
+Would return:
+
+    RFunk.some('YES IT WORKED')
+
+The only supported types are option and either.
     
 ## Functions
 
