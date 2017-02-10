@@ -8,16 +8,16 @@ class ConditionClass
     val arg: arg
 
     pre {
-      val(:arg) == RFunk.some('test')
+      value(:arg) == RFunk.some('test')
     }
 
     body {
-      val return: val(:arg)
-      val(:return)
+      val return: value(:arg)
+      value(:return)
     }
 
     post {
-      val(:return) == RFunk.some('test')
+      value(:return) == RFunk.some('test')
     }
   end
 
@@ -25,16 +25,16 @@ class ConditionClass
     val arg: arg
 
     pre {
-      val(:arg) == RFunk.some('test')
+      value(:arg) == RFunk.some('test')
     }
 
     body {
-      val return: val(:arg)
-      val(:return)
+      val return: value(:arg)
+      value(:return)
     }
 
     post {
-      val(:return) == RFunk.some('not')
+      value(:return) == RFunk.some('not')
     }
   end
 
@@ -43,7 +43,7 @@ class ConditionClass
     val last_name: last_name
 
     body {
-      first_name(val(:first_name)).last_name(val(:last_name))
+      first_name(value(:first_name)).last_name(value(:last_name))
     }
   end
 
@@ -51,16 +51,16 @@ class ConditionClass
     val arg: arg
 
     pre {
-      assert { val(:arg) == RFunk.some('test') }
+      assert { value(:arg) == RFunk.some('test') }
     }
 
     body {
-      val return: val(:arg)
-      val(:return)
+      val return: value(:arg)
+      value(:return)
     }
 
     post {
-      val(:return) == RFunk.some('test')
+      value(:return) == RFunk.some('test')
     }
   end
 
@@ -68,16 +68,16 @@ class ConditionClass
     val arg: arg
 
     pre {
-      assert { val(:arg) == RFunk.some('test') }
+      assert { value(:arg) == RFunk.some('test') }
     }
 
     body {
-      val return: val(:arg)
-      val(:return)
+      val return: value(:arg)
+      value(:return)
     }
 
     post {
-      val(:return) == RFunk.some('test')
+      value(:return) == RFunk.some('test')
     }
   end
 end

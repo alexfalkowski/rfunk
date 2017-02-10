@@ -100,14 +100,14 @@ This keyword has an aliase of let.
       fun :full_name do
         val name: 'Alex'
 
-        val(:name)
+        value(:name)
       end
 
       fun :immutable_full_name do
         val name: 'Alex'
         val name: 'Alex'
 
-        val(:name)
+        value(:name)
       end
     end
 
@@ -134,11 +134,11 @@ metaphor with the conditions and obligations of business contracts.
 
       body {
         val return: "Hello #{name}!"
-        val(:return)
+        value(:return)
       }
 
       post {
-        val(:return) == Some('Hello Bob!')
+        value(:return) == Some('Hello Bob!')
       }
     end
     
@@ -155,11 +155,11 @@ RFunk has the ability to specify types as a part of a function definition.
 
       body {
         val return: "Hello #{name}!"
-        val(:return)
+        value(:return)
       }
 
       post {
-        val(:return) == Some('Hello Bob!')
+        value(:return) == Some('Hello Bob!')
       }
     end
     
@@ -176,11 +176,11 @@ If the return type is not a string we would get the following error:
 
       body {
         val return: "Hello #{name}!"
-        val(:return)
+        value(:return)
       }
 
       post {
-        val(:return) == Some('Hello Bob!')
+        value(:return) == Some('Hello Bob!')
       }
     end
     

@@ -10,16 +10,16 @@ module RFunk
     end
 
     def val(options)
-      if options.is_a?(Hash)
-        if variables.empty?
-          self.variables = options
-        else
-          error_checking.raise_immutable(options, variables)
-          self.variables = variables.merge(options)
-        end
+      if variables.empty?
+        self.variables = options
       else
-        RFunk.some(RFunk.some(variables)[options])
+        error_checking.raise_immutable(options, variables)
+        self.variables = variables.merge(options)
       end
+    end
+
+    def value(options)
+      RFunk.some(RFunk.some(variables)[options])
     end
 
     [:let].each { |m| alias_method m, :val }

@@ -8,33 +8,33 @@ class ValueClass
     val first_name: first_name
     val last_name: last_name
 
-    first_name(val(:first_name)).last_name(val(:last_name))
+    first_name(value(:first_name)).last_name(value(:last_name))
   end
 
   func :undefined do
-    val(:hello)
+    value(:hello)
   end
 
   defn :parameter => 'String -> String' do |m|
     let hello: m.to_s
-    val(:hello)
+    value(:hello)
   end
 
   fn :declare_valid => String do
     val hello: 'Hello'
-    val(:hello)
+    value(:hello)
   end
 
   fun :invalid_return_type => Integer do
     val string: 'Hello'
-    val(:string)
+    value(:string)
   end
 
   fun :declare_multiple do
     val hello: 'Hello'
     val multiple: 'Multiple'
 
-    val(:multiple)
+    value(:multiple)
   end
 
   fun :override_existing do
