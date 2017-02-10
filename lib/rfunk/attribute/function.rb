@@ -22,7 +22,7 @@ module RFunk
       RFunk.some(RFunk.some(variables)[options])
     end
 
-    [:let].each { |m| alias_method m, :val }
+    alias let val
 
     def assert(&_)
       return true if yield
@@ -55,10 +55,6 @@ module RFunk
 
     def method_missing(method, *arguments, &block)
       this.send(method, *arguments, &block)
-    end
-
-    def respond_to_missing?(method_name, include_private = false)
-      this.respond_to_missing?(method_name, include_private)
     end
 
     private

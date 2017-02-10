@@ -11,6 +11,10 @@ module RFunk
     def or(value)
       RFunk.failure(value)
     end
+
+    def key
+      :failure
+    end
   end
 
   class << self
