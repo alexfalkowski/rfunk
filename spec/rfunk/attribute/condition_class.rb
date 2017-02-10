@@ -5,79 +5,79 @@ class ConditionClass
   attribute :last_name, String
 
   fun :valid do |arg|
-    var arg: arg
+    val arg: arg
 
     pre {
-      var(:arg) == RFunk.some('test')
+      value(:arg) == RFunk.some('test')
     }
 
     body {
-      var return: var(:arg)
-      var(:return)
+      val return: value(:arg)
+      value(:return)
     }
 
     post {
-      var(:return) == RFunk.some('test')
+      value(:return) == RFunk.some('test')
     }
   end
 
   fun :invalid do |arg|
-    var arg: arg
+    val arg: arg
 
     pre {
-      var(:arg) == RFunk.some('test')
+      value(:arg) == RFunk.some('test')
     }
 
     body {
-      var return: var(:arg)
-      var(:return)
+      val return: value(:arg)
+      value(:return)
     }
 
     post {
-      var(:return) == RFunk.some('not')
+      value(:return) == RFunk.some('not')
     }
   end
 
   fun :full_name do |first_name, last_name|
-    var first_name: first_name
-    var last_name: last_name
+    val first_name: first_name
+    val last_name: last_name
 
     body {
-      first_name(var(:first_name)).last_name(var(:last_name))
+      first_name(value(:first_name)).last_name(value(:last_name))
     }
   end
 
   fun :assert_argument => String do |arg|
-    var arg: arg
+    val arg: arg
 
     pre {
-      assert { var(:arg) == RFunk.some('test') }
+      assert { value(:arg) == RFunk.some('test') }
     }
 
     body {
-      var return: var(:arg)
-      var(:return)
+      val return: value(:arg)
+      value(:return)
     }
 
     post {
-      var(:return) == RFunk.some('test')
+      value(:return) == RFunk.some('test')
     }
   end
 
   fun :invalid_return_type => Integer do |arg|
-    var arg: arg
+    val arg: arg
 
     pre {
-      assert { var(:arg) == RFunk.some('test') }
+      assert { value(:arg) == RFunk.some('test') }
     }
 
     body {
-      var return: var(:arg)
-      var(:return)
+      val return: value(:arg)
+      value(:return)
     }
 
     post {
-      var(:return) == RFunk.some('test')
+      value(:return) == RFunk.some('test')
     }
   end
 end
