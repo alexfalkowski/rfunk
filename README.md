@@ -190,7 +190,7 @@ If the parameter type is not a string we would get the following error:
 
 ### Pattern Matching
 
-You can also do some pattern Matching
+You can also do some pattern matching
 
     fun :something do
       match(RFunk.some('YES')) do |p|
