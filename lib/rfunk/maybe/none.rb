@@ -2,7 +2,7 @@ module RFunk
   class None < RFunk::Option
     include Singleton
 
-    def value(default = None())
+    def value(default = RFunk.none)
       RFunk.option(default)
     end
 
