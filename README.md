@@ -16,11 +16,11 @@ This has led to innumerable errors, vulnerabilities, and system crashes, which h
 
 ### How do we use this?
 
-    Option('value') == Some('value')
-    Option(nil) == None()
+    RFunk.option('value') == RFunk.some('value')
+    RFunk.option(nil) == RFunk.none
 
-    Option('value').or('other') == Some('value')
-    Option(nil).or('other') == Some('other')
+    RFunk.option('value').or('other') == RFunk.some('value')
+    RFunk.option(nil).or('other') == RFunk.some('other')
 
 ## Either
 
@@ -29,16 +29,16 @@ so that they can describe what went wrong or provide some other useful info rega
 
 ### How do we use this?
 
-    Either(-> { 'YES' }) == Success(Some('YES'))
-    Either(-> { 1 / 0 }) == Failure(Some(ZeroDivisionError))
-    Either(nil) == Failure(None())
-    Either(Some('YES')) == Success(Some('YES'))
-    Either(None()) == Failure(None())
+    RFunk.either(-> { 'YES' }) == RFunk.success(RFunk.some('YES'))
+    RFunk.either(-> { 1 / 0 }) == RFunk.failure(RFunk.some(ZeroDivisionError))
+    RFunk.either(nil) == RFunk.failure(RFunk.none)
+    RFunk.either(RFunk.some('YES')) == RFunk.success(RFunk.some('YES'))
+    RFunk.either(RFunk.none) == RFunk.failure(RFunk.none)
 
-    Either(-> { 'success' }).or('failure') == Success(Some('success'))
-    Either(-> { 1 / 0 }).or('error') == Failure(Some('error'))
-    Either(nil).or('error') == Failure(Some('error'))
-    Either(nil).or(nil) == Failure(None())
+    RFunk.either(-> { 'success' }).or('failure') == RFunk.success(RFunk.some('success'))
+    RFunk.either(-> { 1 / 0 }).or('error') == RFunk.failure(RFunk.some('error'))
+    RFunk.either(nil).or('error') == RFunk.failure(RFunk.some('error'))
+    RFunk.either(nil).or(nil) == RFunk.failure(RFunk.none)
     
 ## Lazy
 
@@ -47,15 +47,15 @@ or some other expensive process until the first time it is needed.
 
 ### How do we use this?
 
-    lazy = Lazy(-> { 'Lazy' })
-    lazy.value == Some('Lazy')
+    lazy = RFunk.lazy(-> { 'Lazy' })
+    lazy.value == RFunk.some('Lazy')
     lazy.created? == true
 
-    lazy = Lazy(-> { nil })
-    lazy.value == None()
+    lazy = RFunk.lazy(-> { nil })
+    lazy.value == RFunk.none
     lazy.created? == true
 
-    lazy = Lazy(-> { 'Lazy' })
+    lazy = RFunk.lazy(-> { 'Lazy' })
     lazy.created? == false
 
 ## Immutability
@@ -80,15 +80,15 @@ In the Hickeysian universe, a State is a specific value for an identity at a poi
 
     customer = Customer.new
 
-    customer.first_name == None()
+    customer.first_name == RFunk.none
     test_customer = customer.first_name('test').last_name('test')
-    test_customer.first_name == Some('test')
-    test_customer.last_name == Some('test')
-    test_customer.first_name = 1 == Failure(TypeError, "Expected a type of 'String' for attribute 'first_name'")
+    test_customer.first_name == RFunk.some('test')
+    test_customer.last_name == RFunk.some('test')
+    test_customer.first_name = 1 == RFunk.failure(TypeError, "Expected a type of 'String' for attribute 'first_name'")
 
     customer = Customer.new(first_name: 'test', last_name: 'test')
-    customer.first_name == Some('test')
-    customer.last_name == Some('test')
+    customer.first_name == RFunk.some('test')
+    customer.last_name == RFunk.some('test')
 
 ### Immutable values
 
@@ -112,8 +112,8 @@ This keyword has an aliase of let.
     end
 
     customer = Customer.new
-    customer.full_name == Some('Alex')
-    customer.immutable_full_name == Failure(ImmutableError, "Could not rebind a value '[:name]', because they are immutable.")
+    customer.full_name == RFunk.some('Alex')
+    customer.immutable_full_name == RFunk.failure(ImmutableError, "Could not rebind a value '[:name]', because they are immutable.")
 
 ## Design by Contract
 
@@ -122,14 +122,14 @@ As stated by [Wikipedia](http://en.wikipedia.org/wiki/Design_by_contract)
 > Design by contract (DbC), also known as contract programming, programming by contract and design-by-contract programming,
 is an approach for designing software. It prescribes that software designers should define formal, precise and verifiable
 interface specifications for software components, which extend the ordinary definition of abstract data types with preconditions,
-postconditions and invaliants. These specifications are referred to as "contracts", in accordance with a conceptual
+postconditions and invariants. These specifications are referred to as "contracts", in accordance with a conceptual
 metaphor with the conditions and obligations of business contracts.
 
 ### How do we use this?
 
     fun :say_hello do |name|
       pre {
-        assert { name == Some('Bob') }
+        assert { name == RFunk.some('Bob') }
       }
 
       body {
@@ -138,7 +138,7 @@ metaphor with the conditions and obligations of business contracts.
       }
 
       post {
-        value(:return) == Some('Hello Bob!')
+        value(:return) == RFunk.some('Hello Bob!')
       }
     end
     
@@ -150,7 +150,7 @@ RFunk has the ability to specify types as a part of a function definition.
 
     fun :say_hello => String do |name|
       pre {
-        assert { name == Some('Bob') }
+        assert { name == RFunk.some('Bob') }
       }
 
       body {
@@ -159,19 +159,19 @@ RFunk has the ability to specify types as a part of a function definition.
       }
 
       post {
-        value(:return) == Some('Hello Bob!')
+        value(:return) == RFunk.some('Hello Bob!')
       }
     end
     
 If the return type is not a string we would get the following error:
  
-    Failure(TypeError, "Expected a type of 'String' for return 'say_hello'")
+    RFunk.failure(TypeError, "Expected a type of 'String' for return 'say_hello'")
     
 ### Parameter Types
 
     fun :say_hello => 'String -> String' do |name|
       pre {
-        assert { name == Some('Bob') }
+        assert { name == RFunk.some('Bob') }
       }
 
       body {
@@ -180,13 +180,13 @@ If the return type is not a string we would get the following error:
       }
 
       post {
-        value(:return) == Some('Hello Bob!')
+        value(:return) == RFunk.some('Hello Bob!')
       }
     end
     
 If the parameter type is not a string we would get the following error:
  
-    Failure(TypeError, "Expected a type of 'String' for parameter '1'")
+    RFunk.failure(TypeError, "Expected a type of 'String' for parameter '1'")
     
 ## Functions
 
@@ -197,11 +197,11 @@ aliases of fn, func and defn.
 
 This is similar to the pipeline operator in Unix
 
-    Option({ a: 1 }).pipe { |h| h.to_s }.pipe { |s| "#{s}, hello" }
+    RFunk.option({ a: 1 }).pipe { |h| h.to_s }.pipe { |s| "#{s}, hello" }
     
 Would return
 
-    Some('{:a=>1}, hello')
+    RFunk.some('{:a=>1}, hello')
     
 ## Third party libraries
 
