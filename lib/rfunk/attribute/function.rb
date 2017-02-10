@@ -57,10 +57,6 @@ module RFunk
       this.send(method, *arguments, &block)
     end
 
-    def respond_to_missing?(method_name, include_private = false)
-      this.respond_to_missing?(method_name, include_private)
-    end
-
     private
 
     attr_reader :block, :pre_block, :post_block, :body_block, :function_definition

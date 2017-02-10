@@ -11,6 +11,10 @@ module RFunk
     def or(_)
       self
     end
+
+    def key
+      :success
+    end
   end
 
   class << self

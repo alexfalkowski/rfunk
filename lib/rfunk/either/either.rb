@@ -13,6 +13,8 @@ module RFunk
       end
     end
 
+    alias_method :identity, :result
+
     def ==(other)
       other.result == result
     end

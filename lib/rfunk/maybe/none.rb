@@ -34,6 +34,10 @@ module RFunk
       {}
     end
 
+    def key
+      :none
+    end
+
     protected
 
     def enum
