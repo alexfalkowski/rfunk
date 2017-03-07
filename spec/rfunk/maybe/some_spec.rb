@@ -17,7 +17,7 @@ describe RFunk::Some do
       end
 
       context 'hash' do
-        When(:result) { RFunk.option({ a: 1 }) }
+        When(:result) { RFunk.option(a: 1) }
         Then { result[:a] == RFunk.some(1) }
       end
     end
@@ -35,7 +35,7 @@ describe RFunk::Some do
     end
 
     context 'pipeline' do
-      When(:result) { RFunk.option({ a: 1 }).pipe { |h| h.to_s }.pipe { |s| "#{s}, hello" } }
+      When(:result) { RFunk.option(a: 1).pipe(&:to_s).pipe { |s| "#{s}, hello" } }
       Then { result == RFunk.some('{:a=>1}, hello') }
     end
   end

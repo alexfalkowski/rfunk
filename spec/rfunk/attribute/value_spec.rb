@@ -5,13 +5,13 @@ describe RFunk::AttributeFunction do
     context 'Call once' do
       Given(:variable) { ValueClass.new }
       When(:result) { variable.declare_valid }
-      Then { expect(result).to eq(RFunk.some('Hello')) }
+      Then { result == RFunk.some('Hello') }
     end
 
     context 'Call twice' do
       Given(:variable) { ValueClass.new }
       When(:result) { variable.declare_valid; variable.declare_valid }
-      Then { expect(result).to eq(RFunk.some('Hello')) }
+      Then { result == RFunk.some('Hello') }
     end
 
     context 'Invalid return type' do
@@ -26,15 +26,15 @@ describe RFunk::AttributeFunction do
   context 'set attributes of class' do
     Given(:variable) { ValueClass.new }
     When(:result) { variable.full_name('Alex', 'Falkowski') }
-    Then { expect(result.first_name).to eq(RFunk.some('Alex')) }
-    Then { expect(result.last_name).to eq(RFunk.some('Falkowski')) }
+    Then { result.first_name == RFunk.some('Alex') }
+    Then { result.last_name == RFunk.some('Falkowski') }
   end
 
   context 'With parameters' do
     context 'Valid' do
       Given(:variable) { ValueClass.new }
       When(:result) { variable.parameter('Parameters') }
-      Then { expect(result).to eq(RFunk.some('Parameters')) }
+      Then { result == RFunk.some('Parameters') }
     end
 
     context 'Invalid' do
@@ -47,13 +47,13 @@ describe RFunk::AttributeFunction do
   context 'Declaring multiple variables' do
     Given(:variable) { ValueClass.new }
     When(:result) { variable.declare_multiple }
-    Then { expect(result).to eq(RFunk.some('Multiple')) }
+    Then { result == RFunk.some('Multiple') }
   end
 
   context 'Undefined variable' do
     Given(:variable) { ValueClass.new }
     When(:result) { variable.undefined }
-    Then { expect(result).to eq(RFunk.none) }
+    Then { result == RFunk.none }
   end
 
   context 'Override an existing variable' do
