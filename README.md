@@ -241,5 +241,5 @@ This will allow you to use more functional concepts.
 
 ## Copyright
 
-Copyright (c) 2014 Alex Falkowski. See LICENSE.txt for
+Copyright (c) 2017 Alex Falkowski. See LICENSE.txt for
 further details.
