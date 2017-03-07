@@ -30,4 +30,10 @@ describe RFunk::Match do
     When(:result) { variable.failed }
     Then { result == RFunk.some('IT IS A NONE') }
   end
+
+  context 'No match' do
+    Given(:variable) { MatchClass.new }
+    When(:result) { variable.no_match }
+    Then { result == RFunk.none }
+  end
 end

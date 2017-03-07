@@ -33,4 +33,9 @@ class MatchClass
       p.with :failure, ->(_) { 'IT IS A NONE' }
     end
   end
+
+  fun :no_match do
+    match(RFunk.either(nil)) do
+    end
+  end
 end
