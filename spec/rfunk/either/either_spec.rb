@@ -2,15 +2,15 @@ describe RFunk::Either do
   context 'Some' do
     Given(:either) { RFunk.either(RFunk.option('YES')) }
     When(:result) { either.result }
-    Then { expect(either).to eq(RFunk.success(RFunk.some('YES'))) }
-    Then { expect(result).to eq(RFunk.some('YES')) }
-    Then { expect(result.value).to eq('YES') }
+    Then { either == RFunk.success(RFunk.some('YES')) }
+    Then { result == RFunk.some('YES') }
+    Then { result.value == 'YES' }
   end
 
   context 'None' do
     Given(:either) { RFunk.either(RFunk.option(nil)) }
     When(:result) { either.result }
-    Then { expect(either).to eq(RFunk.failure(RFunk.none)) }
+    Then { either == RFunk.failure(RFunk.none) }
   end
 
   context 'Lambda' do
@@ -19,8 +19,8 @@ describe RFunk::Either do
 
       context 'gets value' do
         When(:result) { either.result }
-        Then { expect(result).to eq(RFunk.some('YES')) }
-        Then { expect(result.value).to eq('YES') }
+        Then { result == RFunk.some('YES') }
+        Then { result.value == 'YES' }
       end
 
       context 'success?' do
@@ -34,8 +34,8 @@ describe RFunk::Either do
 
       context 'gets value' do
         When(:result) { either.result }
-        Then { expect(result).to eq(RFunk.some('success')) }
-        Then { expect(result.value).to eq('success') }
+        Then { result == RFunk.some('success') }
+        Then { result.value == 'success' }
       end
 
       context 'success?' do
@@ -63,8 +63,8 @@ describe RFunk::Either do
 
       context 'gets value' do
         When(:result) { either.result }
-        Then { expect(result).to eq(RFunk.some('error')) }
-        Then { expect(result.value).to eq('error') }
+        Then { result == RFunk.some('error') }
+        Then { result.value == 'error' }
       end
 
       context 'failure?' do
@@ -80,8 +80,8 @@ describe RFunk::Either do
 
       context 'gets value' do
         When(:result) { either.result }
-        Then { expect(result).to eq(RFunk.some(true)) }
-        Then { expect(result.value).to eq(true) }
+        Then { result == RFunk.some(true) }
+        Then { result.value == true }
       end
 
       context 'success?' do
@@ -95,8 +95,8 @@ describe RFunk::Either do
 
       context 'gets value' do
         When(:result) { either.result }
-        Then { expect(result).to eq(RFunk.some(true)) }
-        Then { expect(result.value).to eq(true) }
+        Then { result == RFunk.some(true) }
+        Then { result.value == true }
       end
 
       context 'success?' do
@@ -110,8 +110,8 @@ describe RFunk::Either do
 
       context 'gets value' do
         When(:result) { either.result }
-        Then { expect(result).to eq(RFunk.some(false)) }
-        Then { expect(result.value).to eq(false) }
+        Then { result == RFunk.some(false) }
+        Then { result.value == false }
       end
 
       context 'failure?' do
@@ -125,8 +125,8 @@ describe RFunk::Either do
 
       context 'gets value' do
         When(:result) { either.result }
-        Then { expect(result).to eq(RFunk.some('error')) }
-        Then { expect(result.value).to eq('error') }
+        Then { result == RFunk.some('error') }
+        Then { result.value == 'error' }
       end
 
       context 'failure?' do
