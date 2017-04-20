@@ -38,7 +38,7 @@ module RFunk
       [other, value]
     end
 
-    [:to_str, :to_ary, :to_hash].each { |k| define_method(k) { value } }
+    %i[to_str to_ary to_hash].each { |k| define_method(k) { value } }
 
     def key
       :some
