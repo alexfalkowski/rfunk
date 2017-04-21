@@ -34,6 +34,6 @@ describe RFunk::Match do
   context 'No match' do
     Given(:variable) { MatchClass.new }
     When(:result) { variable.no_match }
-    Then { result == RFunk.none }
+    Then { result == Failure(RFunk::Match::Error, "Could not match for option 'failure'.") }
   end
 end

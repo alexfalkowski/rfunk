@@ -35,7 +35,8 @@ class MatchClass
   end
 
   fun :no_match do
-    match(RFunk.either(nil)) do
+    match(RFunk.either(nil)) do |p|
+      p.with :success, ->(v) { "#{v} IT WORKED" }
     end
   end
 end

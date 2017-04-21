@@ -8,7 +8,7 @@ module RFunk
         return t.last.call(option.identity) if t.first == option.key
       end
 
-      RFunk.none
+      raise RFunk::Match::Error, "Could not match for option '#{option.key}'."
     end
   end
 end
