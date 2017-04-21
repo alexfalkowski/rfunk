@@ -2,6 +2,15 @@ module RFunk
   class Option
     include Enumerable
 
+    class << self
+      def inherited(subclass)
+        @descendants ||= []
+        @descendants << subclass
+      end
+
+      attr_reader :descendants
+    end
+
     def each(&block)
       return enum_for(:enum) if block.nil?
 
@@ -11,23 +20,8 @@ module RFunk
 
   class << self
     def option(value)
-      if [RFunk::Some, RFunk::None].map { |t| value.is_a?(t) }.any?
-        value
-      elsif nothing?(value)
-        RFunk::None.instance
-      else
-        RFunk::Some.new(value)
-      end
-    end
-
-    private
-
-    def nothing?(value)
-      value.nil? || empty?(value) || value == RFunk::None.instance
-    end
-
-    def empty?(value)
-      value.respond_to?(:empty?) && value.empty?
+      return value if RFunk::Option.descendants.map { |t| value.is_a?(t) }.any?
+      RFunk::Option.descendants.find { |c| c.satisfies?(value) }.create(value)
     end
   end
 end
