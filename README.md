@@ -202,7 +202,7 @@ Would return:
 
     RFunk.some('YES IT WORKED')
 
-Do use a default match use the following:
+To use a default match use the following:
 
     fun :something do
       match(RFunk.some('YES')) do |p|
