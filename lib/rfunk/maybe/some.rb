@@ -34,8 +34,7 @@ module RFunk
     end
 
     def ==(other)
-      return false unless self.class == other.class
-      value == RFunk.option(other).value
+      value == other.value
     end
 
     def <=>(other)

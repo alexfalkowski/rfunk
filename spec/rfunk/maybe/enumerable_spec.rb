@@ -15,7 +15,7 @@ describe 'Enumerable' do
     context 'array' do
       Given(:values) { RFunk.option([1, 2, 3]) }
       When(:result) { values.map { |i| i * 2 } }
-      Then { result == RFunk.some([2, 4, 6]) }
+      Then { result == [2, 4, 6] }
     end
   end
 
