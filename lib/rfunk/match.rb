@@ -4,13 +4,11 @@ module RFunk
       pattern = RFunk::Match::Pattern.new
       yield(pattern)
 
-      pattern_case = pattern.cases.select { |t| t.first == option.key || t.first == :_ }.first
+      pattern_case = pattern.cases.find { |t| t.first == option.key || t.first == :_ }
 
-      if pattern_case
-        pattern_case.last.call(option.identity)
-      else
-        raise RFunk::Match::Error, "Could not match for option '#{option.key}'."
-      end
+      return pattern_case.last.call(option.identity) if pattern_case
+
+      raise RFunk::Match::Error, "Could not match for option '#{option.key}'."
     end
   end
 end

@@ -12,12 +12,10 @@ module RFunk
       end
     end
 
+    attr_reader :value
+
     def initialize(value)
       @value = value
-    end
-
-    def value
-      @value
     end
 
     alias identity value
