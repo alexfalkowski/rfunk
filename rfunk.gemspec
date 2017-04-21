@@ -16,8 +16,8 @@ Gem::Specification.new do |s|
   s.platform = Gem::Platform::RUBY
   s.require_paths = ['lib']
 
-  s.add_dependency 'concurrent-ruby', '~> 1.0.5'
-  s.add_dependency 'concurrent-ruby-ext', '~> 1.0.5'
+  s.add_dependency 'concurrent-ruby', '~> 1.0'
+  s.add_dependency 'concurrent-ruby-ext', '~> 1.0'
   s.add_dependency 'hamster', '~> 3.0'
   s.add_dependency 'ice_nine', '~> 0.11.2'
 
