@@ -2,8 +2,8 @@ module RFunk
   class None < RFunk::Option
     include Singleton
 
-    def value(default = RFunk.none)
-      RFunk.option(default)
+    def value
+      RFunk::None.instance
     end
 
     def or(other)
@@ -46,8 +46,8 @@ module RFunk
   end
 
   class << self
-    def none(value = nil)
-      RFunk.option(value)
+    def none
+      RFunk::None.instance
     end
   end
 end

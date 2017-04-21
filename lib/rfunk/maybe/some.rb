@@ -6,7 +6,7 @@ module RFunk
       @value = value
     end
 
-    def value(_ = RFunk.none)
+    def value
       @value
     end
 

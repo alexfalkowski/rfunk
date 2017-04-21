@@ -13,17 +13,12 @@ describe RFunk::None do
 
       context 'value({}) is none' do
         When(:result) { RFunk.option(nil) }
-        Then { result.value({}) == RFunk.none }
+        Then { result.value == RFunk.none }
       end
 
       context 'value(none) is none' do
         When(:result) { RFunk.option(nil) }
-        Then { result.value(RFunk.none) == RFunk.none }
-      end
-
-      context 'value(3) is just' do
-        When(:result) { RFunk.option(nil) }
-        Then { result.value(3) == RFunk.some(3) }
+        Then { result.value == RFunk.none }
       end
     end
 
