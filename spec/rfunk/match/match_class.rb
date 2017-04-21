@@ -25,6 +25,7 @@ class MatchClass
   fun :successful do
     match(RFunk.either('YES')) do |p|
       p.with :success, ->(v) { "#{v} IT WORKED" }
+      p.with :_, ->(_) { 'IT IS A NONE' }
     end
   end
 
@@ -35,7 +36,14 @@ class MatchClass
   end
 
   fun :no_match do
-    match(RFunk.either(nil)) do
+    match(RFunk.either(nil)) do |p|
+      p.with :success, ->(v) { "#{v} IT WORKED" }
+    end
+  end
+
+  fun :default_match do
+    match(RFunk.either('YES')) do |p|
+      p.with :_, ->(v) { "#{v} IT WORKED" }
     end
   end
 end

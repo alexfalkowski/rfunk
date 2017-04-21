@@ -2,12 +2,20 @@ module RFunk
   class Some < Option
     extend Forwardable
 
-    def initialize(value)
-      @value = value
+    class << self
+      def create(value)
+        new(value)
+      end
+
+      def satisfies?(value)
+        !value.nil?
+      end
     end
 
-    def value(_ = RFunk.none)
-      @value
+    attr_reader :value
+
+    def initialize(value)
+      @value = value
     end
 
     alias identity value
@@ -38,7 +46,7 @@ module RFunk
       [other, value]
     end
 
-    [:to_str, :to_ary, :to_hash].each { |k| define_method(k) { value } }
+    %i[to_str to_ary to_hash].each { |k| define_method(k) { value } }
 
     def key
       :some

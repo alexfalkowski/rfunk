@@ -20,7 +20,7 @@ module RFunk
     end
 
     def create_instance_variables(instance, object, variable_name)
-      instance.instance_variables.select { |v| v != variable_name }.each do |v|
+      instance.instance_variables.reject { |v| v == variable_name }.each do |v|
         previous_value = instance.instance_variable_get(v)
         object.instance_variable_set(v, previous_value)
       end

@@ -202,6 +202,18 @@ Would return:
 
     RFunk.some('YES IT WORKED')
 
+Do use a default match use the following:
+
+    fun :something do
+      match(RFunk.some('YES')) do |p|
+        p.with :_, ->(v) { "#{v} IT WORKED" }
+      end
+    end
+
+Would return:
+
+    RFunk.some('YES IT WORKED')
+
 The only supported types are option and either.
     
 ## Functions

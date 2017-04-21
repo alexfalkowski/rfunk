@@ -4,5 +4,7 @@ dependencies:
     - gem install bundler
 
 test:
+  override:
+    - bundle exec rspec -r rspec_junit_formatter --format documentation --format RspecJunitFormatter -o $CIRCLE_TEST_REPORTS/rspec/junit.xml
   post:
     - bundle exec rubocop
