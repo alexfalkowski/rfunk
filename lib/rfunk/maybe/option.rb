@@ -1,6 +1,7 @@
 module RFunk
   class Option
     include Enumerable
+    extend Forwardable
 
     class << self
       def inherited(subclass)
@@ -11,9 +12,7 @@ module RFunk
       attr_reader :descendants
     end
 
-    def each
-      enum.each { |v| yield v }
-    end
+    def_delegators :enum, :each
   end
 
   class << self

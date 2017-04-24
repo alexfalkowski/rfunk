@@ -1,7 +1,5 @@
 module RFunk
   class Some < Option
-    extend Forwardable
-
     class << self
       def create(value)
         new(value)
