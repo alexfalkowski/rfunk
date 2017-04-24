@@ -11,9 +11,7 @@ module RFunk
       attr_reader :descendants
     end
 
-    def each(&block)
-      return enum_for(:enum) if block.nil?
-
+    def each
       enum.each { |v| yield v }
     end
   end
