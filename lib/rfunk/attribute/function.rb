@@ -81,9 +81,7 @@ module RFunk
     end
 
     def validate_return_type(return_value)
-      error_checking.raise_expected_return_type(function_name.value,
-                                                return_value,
-                                                type_annotation.return)
+      error_checking.raise_expected_return_type(function_name.value, return_value, type_annotation.return)
     end
 
     def validate_parameter_types(*args)
