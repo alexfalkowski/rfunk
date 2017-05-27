@@ -5,7 +5,7 @@ AllCops:
     - spec/**/*
     - vendor/**/*
 
-Style/DotPosition:
+Layout/DotPosition:
   EnforcedStyle: trailing
 
 Style/Documentation:
