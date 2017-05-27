@@ -77,7 +77,7 @@ module RFunk
     end
 
     def error_checking
-      RFunk.lazy(-> { RFunk::ErrorChecking.new }).value
+      @error_checking ||= RFunk::ErrorChecking.new
     end
 
     def validate_return_type(return_value)
