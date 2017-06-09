@@ -1,7 +1,5 @@
 module RFunk
   class Some < Option
-    extend Forwardable
-
     class << self
       def create(value)
         new(value)
@@ -34,8 +32,7 @@ module RFunk
     end
 
     def ==(other)
-      return false unless self.class == other.class
-      value == RFunk.option(other).value
+      value == other.value
     end
 
     def <=>(other)

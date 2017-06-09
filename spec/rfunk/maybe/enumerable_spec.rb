@@ -2,8 +2,8 @@ describe 'Enumerable' do
   context 'Some' do
     context 'flat_map' do
       Given(:values) { [RFunk.option(1), RFunk.option(2)] }
-      When(:result) { values.flat_map(&:to_a) }
-      Then { result == [1, 2] }
+      When(:result) { RFunk.option(values.flat_map(&:to_a)) }
+      Then { result == RFunk.some([1, 2]) }
     end
 
     context 'sort' do
@@ -14,7 +14,7 @@ describe 'Enumerable' do
 
     context 'array' do
       Given(:values) { RFunk.option([1, 2, 3]) }
-      When(:result) { values.map { |i| i * 2 } }
+      When(:result) { RFunk.option(values.map { |i| i * 2 }) }
       Then { result == RFunk.some([2, 4, 6]) }
     end
   end
@@ -22,8 +22,8 @@ describe 'Enumerable' do
   context 'None' do
     context 'flat_map' do
       Given(:values) { [RFunk.none, RFunk.none] }
-      When(:result) { values.flat_map(&:to_a) }
-      Then { result == [] }
+      When(:result) { RFunk.option(values.flat_map(&:to_a)) }
+      Then { result == RFunk.none }
     end
 
     context 'sort' do
