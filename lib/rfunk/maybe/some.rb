@@ -24,6 +24,7 @@ module RFunk
 
     def pipe(&block)
       return self if block.nil?
+
       RFunk.option(yield value)
     end
 

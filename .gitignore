@@ -1,4 +1,5 @@
-.idea
 .bundle
 *.gem
 coverage
+reports/junit.xml
+vendor/bundle

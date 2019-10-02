@@ -16,11 +16,13 @@ This has led to innumerable errors, vulnerabilities, and system crashes, which h
 
 ### How do we use this?
 
-    RFunk.option('value') == RFunk.some('value')
-    RFunk.option(nil) == RFunk.none
+```ruby
+RFunk.option('value') == RFunk.some('value')
+RFunk.option(nil) == RFunk.none
 
-    RFunk.option('value').or('other') == RFunk.some('value')
-    RFunk.option(nil).or('other') == RFunk.some('other')
+RFunk.option('value').or('other') == RFunk.some('value')
+RFunk.option(nil).or('other') == RFunk.some('other')
+```
 
 ## Either
 
@@ -29,17 +31,19 @@ so that they can describe what went wrong or provide some other useful info rega
 
 ### How do we use this?
 
-    RFunk.either(-> { 'YES' }) == RFunk.success(RFunk.some('YES'))
-    RFunk.either(-> { 1 / 0 }) == RFunk.failure(RFunk.some(ZeroDivisionError))
-    RFunk.either(nil) == RFunk.failure(RFunk.none)
-    RFunk.either(RFunk.some('YES')) == RFunk.success(RFunk.some('YES'))
-    RFunk.either(RFunk.none) == RFunk.failure(RFunk.none)
+```ruby
+RFunk.either(-> { 'YES' }) == RFunk.success(RFunk.some('YES'))
+RFunk.either(-> { 1 / 0 }) == RFunk.failure(RFunk.some(ZeroDivisionError))
+RFunk.either(nil) == RFunk.failure(RFunk.none)
+RFunk.either(RFunk.some('YES')) == RFunk.success(RFunk.some('YES'))
+RFunk.either(RFunk.none) == RFunk.failure(RFunk.none)
 
-    RFunk.either(-> { 'success' }).or('failure') == RFunk.success(RFunk.some('success'))
-    RFunk.either(-> { 1 / 0 }).or('error') == RFunk.failure(RFunk.some('error'))
-    RFunk.either(nil).or('error') == RFunk.failure(RFunk.some('error'))
-    RFunk.either(nil).or(nil) == RFunk.failure(RFunk.none)
-    
+RFunk.either(-> { 'success' }).or('failure') == RFunk.success(RFunk.some('success'))
+RFunk.either(-> { 1 / 0 }).or('error') == RFunk.failure(RFunk.some('error'))
+RFunk.either(nil).or('error') == RFunk.failure(RFunk.some('error'))
+RFunk.either(nil).or(nil) == RFunk.failure(RFunk.none)
+```
+
 ## Lazy
 
 Lazy initialization is the tactic of delaying the creation of an object, the calculation of a value,
@@ -47,16 +51,18 @@ or some other expensive process until the first time it is needed.
 
 ### How do we use this?
 
-    lazy = RFunk.lazy(-> { 'Lazy' })
-    lazy.value == RFunk.some('Lazy')
-    lazy.created? == true
+```ruby
+lazy = RFunk.lazy(-> { 'Lazy' })
+lazy.value == RFunk.some('Lazy')
+lazy.created? == true
 
-    lazy = RFunk.lazy(-> { nil })
-    lazy.value == RFunk.none
-    lazy.created? == true
+lazy = RFunk.lazy(-> { nil })
+lazy.value == RFunk.none
+lazy.created? == true
 
-    lazy = RFunk.lazy(-> { 'Lazy' })
-    lazy.created? == false
+lazy = RFunk.lazy(-> { 'Lazy' })
+lazy.created? == false
+```
 
 ## Immutability
 
@@ -71,49 +77,53 @@ In the Hickeysian universe, a State is a specific value for an identity at a poi
 
 ### Immutable Classes
 
-    class Customer
-      include RFunk::Attribute
+```ruby
+class Customer
+  include RFunk::Attribute
 
-      attribute :first_name, String
-      attribute :last_name, String
-    end
+  attribute :first_name, String
+  attribute :last_name, String
+end
 
-    customer = Customer.new
+customer = Customer.new
 
-    customer.first_name == RFunk.none
-    test_customer = customer.first_name('test').last_name('test')
-    test_customer.first_name == RFunk.some('test')
-    test_customer.last_name == RFunk.some('test')
-    test_customer.first_name = 1 == RFunk.failure(TypeError, "Expected a type of 'String' for attribute 'first_name'")
+customer.first_name == RFunk.none
+test_customer = customer.first_name('test').last_name('test')
+test_customer.first_name == RFunk.some('test')
+test_customer.last_name == RFunk.some('test')
+test_customer.first_name = 1 == RFunk.failure(TypeError, "Expected a type of 'String' for attribute 'first_name'")
 
-    customer = Customer.new(first_name: 'test', last_name: 'test')
-    customer.first_name == RFunk.some('test')
-    customer.last_name == RFunk.some('test')
+customer = Customer.new(first_name: 'test', last_name: 'test')
+customer.first_name == RFunk.some('test')
+customer.last_name == RFunk.some('test')
+```
 
 ### Immutable Values
 
-This keyword has an aliase of let.
+This keyword has an alias of let.
 
-    class Customer
-      include RFunk::Attribute
+```ruby
+class Customer
+  include RFunk::Attribute
 
-      fun :full_name do
-        val name: 'Alex'
+  fun :full_name do
+    val name: 'Alex'
 
-        value(:name)
-      end
+    value(:name)
+  end
 
-      fun :immutable_full_name do
-        val name: 'Alex'
-        val name: 'Alex'
+  fun :immutable_full_name do
+    val name: 'Alex'
+    val name: 'Alex'
 
-        value(:name)
-      end
-    end
+    value(:name)
+  end
+end
 
-    customer = Customer.new
-    customer.full_name == RFunk.some('Alex')
-    customer.immutable_full_name == RFunk.failure(ImmutableError, "Could not rebind a value '[:name]', because they are immutable.")
+customer = Customer.new
+customer.full_name == RFunk.some('Alex')
+customer.immutable_full_name == RFunk.failure(ImmutableError, "Could not rebind a value '[:name]', because they are immutable.")
+```
 
 ## Design by Contract
 
@@ -127,95 +137,112 @@ metaphor with the conditions and obligations of business contracts.
 
 ### How do we use this?
 
-    fun :say_hello do |name|
-      pre {
-        assert { name == RFunk.some('Bob') }
-      }
+```ruby
+fun :say_hello do |name|
+  pre {
+    assert { name == RFunk.some('Bob') }
+  }
 
-      body {
-        val return: "Hello #{name}!"
-        value(:return)
-      }
+  body {
+    val return: "Hello #{name}!"
+    value(:return)
+  }
 
-      post {
-        value(:return) == RFunk.some('Hello Bob!')
-      }
-    end
-    
+  post {
+    value(:return) == RFunk.some('Hello Bob!')
+  }
+end
+```
+
 ## Types
 
 RFunk has the ability to specify types as a part of a function definition.
 
 ### Return Types
 
-    fun :say_hello => String do |name|
-      pre {
-        assert { name == RFunk.some('Bob') }
-      }
+```ruby
+fun :say_hello => String do |name|
+  pre {
+    assert { name == RFunk.some('Bob') }
+  }
 
-      body {
-        val return: "Hello #{name}!"
-        value(:return)
-      }
+  body {
+    val return: "Hello #{name}!"
+    value(:return)
+  }
 
-      post {
-        value(:return) == RFunk.some('Hello Bob!')
-      }
-    end
-    
+  post {
+    value(:return) == RFunk.some('Hello Bob!')
+  }
+end
+```
+
 If the return type is not a string we would get the following error:
- 
-    RFunk.failure(TypeError, "Expected a type of 'String' for return 'say_hello'")
-    
+
+```ruby
+RFunk.failure(TypeError, "Expected a type of 'String' for return 'say_hello'")
+```
+
 ### Parameter Types
+```ruby
+fun :say_hello => 'String -> String' do |name|
+  pre {
+    assert { name == RFunk.some('Bob') }
+  }
 
-    fun :say_hello => 'String -> String' do |name|
-      pre {
-        assert { name == RFunk.some('Bob') }
-      }
+  body {
+    val return: "Hello #{name}!"
+    value(:return)
+  }
 
-      body {
-        val return: "Hello #{name}!"
-        value(:return)
-      }
+  post {
+    value(:return) == RFunk.some('Hello Bob!')
+  }
+end
+```
 
-      post {
-        value(:return) == RFunk.some('Hello Bob!')
-      }
-    end
-    
 If the parameter type is not a string we would get the following error:
- 
-    RFunk.failure(TypeError, "Expected a type of 'String' for parameter '1'")
+
+```ruby
+RFunk.failure(TypeError, "Expected a type of 'String' for parameter '1'")
+```
 
 ### Pattern Matching
 
 You can also do some pattern matching
 
-    fun :something do
-      match(RFunk.some('YES')) do |p|
-        p.with :some, ->(v) { "#{v} IT WORKED" }
-      end
-    end
+```ruby
+fun :something do
+  match(RFunk.some('YES')) do |p|
+    p.with :some, ->(v) { "#{v} IT WORKED" }
+  end
+end
+```
 
 Would return:
 
-    RFunk.some('YES IT WORKED')
+```ruby
+RFunk.some('YES IT WORKED')
+```
 
 To use a default match use the following:
 
-    fun :something do
-      match(RFunk.some('YES')) do |p|
-        p.with :_, ->(v) { "#{v} IT WORKED" }
-      end
-    end
+```ruby
+fun :something do
+  match(RFunk.some('YES')) do |p|
+    p.with :_, ->(v) { "#{v} IT WORKED" }
+  end
+end
+```
 
 Would return:
 
-    RFunk.some('YES IT WORKED')
+```ruby
+RFunk.some('YES IT WORKED')
+```
 
 The only supported types are option and either.
-    
+
 ## Functions
 
 As you saw in the above examples, you can define your own functions using the fun keyword. This keyword has
@@ -225,12 +252,16 @@ aliases of fn, func and defn.
 
 This is similar to the pipeline operator in Unix
 
-    RFunk.option({ a: 1 }).pipe { |h| h.to_s }.pipe { |s| "#{s}, hello" }
-    
+```ruby
+RFunk.option({ a: 1 }).pipe { |h| h.to_s }.pipe { |s| "#{s}, hello" }
+```
+
 Would return
 
-    RFunk.some('{:a=>1}, hello')
-    
+```ruby
+RFunk.some('{:a=>1}, hello')
+```
+
 ## Third party libraries
 
 We have added the following dependencies:
@@ -253,5 +284,5 @@ This will allow you to use more functional concepts.
 
 ## Copyright
 
-Copyright (c) 2017 Alex Falkowski. See LICENSE.txt for
+Copyright (c) 2019 Alex Falkowski. See LICENSE.txt for
 further details.

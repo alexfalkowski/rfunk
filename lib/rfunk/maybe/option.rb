@@ -18,6 +18,7 @@ module RFunk
   class << self
     def option(value)
       return value if RFunk::Option.descendants.map { |t| value.is_a?(t) }.any?
+
       RFunk::Option.descendants.find { |c| c.satisfies?(value) }.create(value)
     end
   end
