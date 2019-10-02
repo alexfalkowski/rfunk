@@ -22,3 +22,9 @@ Metrics/LineLength:
 
 Lint/EmptyWhen:
   Enabled: false
+
+Style/MethodMissingSuper:
+  Enabled: false
+
+Style/MissingRespondToMissing:
+  Enabled: false
