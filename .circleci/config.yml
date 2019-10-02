@@ -1,24 +1,46 @@
 version: 2
 jobs:
-  build:
+  build_ruby:
     docker:
       - image: circleci/ruby:2.6
-        environment:
-          BUNDLE_JOBS: "3"
-          BUNDLE_PATH: vendor/bundle
-          BUNDLE_RETRY: "3"
     steps:
       - checkout
       - restore_cache:
           keys:
-            - rfunk-gem-cache-{{ checksum "Gemfile.lock" }}
-            - rfunk-gem-cache-
+            - rfunk-ruby-cache-{{ checksum "Gemfile.lock" }}
+            - rfunk-ruby-cache-
       - run: make dependencies
       - save_cache:
-          key: rfunk-gem-cache-{{ checksum "Gemfile.lock" }}
+          key: rfunk-ruby-cache-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
       - run: make specs
       - store_test_results:
           path: reports
       - run: make analysis
+
+  build_jruby:
+    docker:
+     - image: circleci/jruby:9.2
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - rfunk-jruby-cache-{{ checksum "Gemfile.lock" }}
+            - rfunk-jruby-cache-
+      - run: make dependencies
+      - save_cache:
+          key: rfunk-jruby-cache-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+      - run: make specs
+      - store_test_results:
+          path: reports
+      - run: make analysis
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build_ruby
+      - build_jruby
