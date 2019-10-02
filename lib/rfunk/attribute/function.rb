@@ -26,6 +26,7 @@ module RFunk
 
     def assert(&_)
       return true if yield
+
       raise RFunk::AssertionError
     end
 
@@ -73,6 +74,7 @@ module RFunk
 
     def execute_block(block, error)
       return unless block
+
       instance_eval(&block).tap { |r| error_checking.raise_condition_error(error, r) }
     end
 

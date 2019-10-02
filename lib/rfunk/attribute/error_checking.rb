@@ -18,6 +18,7 @@ module RFunk
 
     def raise_not_found(key, attributes)
       return if attributes.key?(key)
+
       message = "Attribute with name '#{key}' does not exist. The only available attributes are '#{attributes.keys}'"
       raise RFunk::NotFoundError, message
     end
@@ -54,6 +55,7 @@ module RFunk
 
     def raise_type(name, value, type, message)
       return if value.is_a?(type)
+
       raise TypeError, "Expected a type of '#{type}' for #{message} '#{name}'"
     end
   end

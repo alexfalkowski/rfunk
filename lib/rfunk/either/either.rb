@@ -41,7 +41,7 @@ module RFunk
 
     def either_with_lambda(lambda)
       RFunk.success(lambda.call)
-    rescue => e
+    rescue StandardError => e
       RFunk.failure(e)
     end
 
