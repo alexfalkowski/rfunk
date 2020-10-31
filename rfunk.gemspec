@@ -11,12 +11,12 @@ Gem::Specification.new do |s|
   s.summary = 'Functional Programming in Ruby'
   s.description = 'See https://github.com/alexfalkowski/rfunk/blob/master/README.md'
   s.license = 'MIT'
-
   s.files = `git ls-files lib`.split("\n")
   s.platform = Gem::Platform::RUBY
   s.require_paths = ['lib']
+  s.required_ruby_version = ['>= 2.7.0', '< 2.8.0']
 
-  s.add_dependency 'concurrent-ruby', '~> 1.0'
+  s.add_dependency 'concurrent-ruby', '~> 1.1', '>= 1.1.7'
   s.add_dependency 'hamster', '~> 3.0'
   s.add_dependency 'ice_nine', '~> 0.11.2'
 

@@ -1,8 +1,8 @@
 version: 2
 jobs:
-  build_ruby:
+  build:
     docker:
-      - image: circleci/ruby:2.6
+      - image: alexfalkowski/ruby:2.7
     steps:
       - checkout
       - restore_cache:
@@ -18,29 +18,21 @@ jobs:
       - store_test_results:
           path: reports
       - run: make analysis
-
-  build_jruby:
+  release:
     docker:
-     - image: circleci/jruby:9.2
+      - image: alexfalkowski/release:1.0
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - rfunk-jruby-cache-{{ checksum "Gemfile.lock" }}
-            - rfunk-jruby-cache-
-      - run: make dependencies
-      - save_cache:
-          key: rfunk-jruby-cache-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
-      - run: make specs
-      - store_test_results:
-          path: reports
-      - run: make analysis
+      - run: release.sh
 
 workflows:
   version: 2
-  build_and_test:
+  rfunk:
     jobs:
-      - build_ruby
-      - build_jruby
+      - build
+      - release:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
