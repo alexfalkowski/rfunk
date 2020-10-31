@@ -1,6 +1,7 @@
 AllCops:
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 2.7
   DisplayCopNames: true
+  NewCops: enable
   Exclude:
     - spec/**/*
     - vendor/**/*
@@ -23,7 +24,7 @@ Metrics/LineLength:
 Lint/EmptyWhen:
   Enabled: false
 
-Style/MethodMissingSuper:
+Lint/MissingSuper:
   Enabled: false
 
 Style/MissingRespondToMissing:
